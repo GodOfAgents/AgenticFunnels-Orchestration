@@ -114,3 +114,256 @@ model ContactFormMessage {
   isRead                    Boolean         @default(false)
   repliedAt                 DateTime?
 }
+
+// ===== AFO PLATFORM MODELS =====
+
+model Agent {
+  id                  String          @id @default(uuid())
+  createdAt           DateTime        @default(now())
+  updatedAt           DateTime        @updatedAt
+  userId              String
+  user                User            @relation(fields: [userId], references: [id])
+  
+  name                String
+  role                String
+  persona             String          // formal, casual, expert
+  systemPrompt        String          @db.Text
+  voiceEnabled        Boolean         @default(false)
+  voiceId             String?         // Elevenlabs/OpenAI voice ID
+  isActive            Boolean         @default(true)
+  isFlagged           Boolean         @default(false)
+  
+  // Metrics
+  totalConversations  Int             @default(0)
+  successRate         Float           @default(0)
+  avgResponseTime     Float           @default(0)
+  
+  conversations       Conversation[]
+  workflows           Workflow[]
+  knowledgeBase       KnowledgeBase[]
+  metrics             AgentMetrics[]
+}
+
+model KnowledgeBase {
+  id                String          @id @default(uuid())
+  createdAt         DateTime        @default(now())
+  agentId           String
+  agent             Agent           @relation(fields: [agentId], references: [id], onDelete: Cascade)
+  
+  name              String
+  fileName          String
+  fileType          String
+  s3Key             String
+  milvusCollection  String
+  status            String          // processing, ready, error
+  documentCount     Int             @default(0)
+  chunkCount        Int             @default(0)
+  storageBytes      BigInt          @default(0)
+}
+
+model Conversation {
+  id                String          @id @default(uuid())
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime        @updatedAt
+  agentId           String
+  agent             Agent           @relation(fields: [agentId], references: [id], onDelete: Cascade)
+  
+  channel           String          // text, voice, whatsapp, sms
+  status            String          // active, complete, failed, incomplete
+  customerName      String?
+  customerEmail     String?
+  customerPhone     String?
+  sentiment         String?         // positive, neutral, negative
+  duration          Int?            // seconds
+  isFlagged         Boolean         @default(false)
+  
+  messages          Message[]
+  leadData          LeadData?
+}
+
+model Message {
+  id                String          @id @default(uuid())
+  createdAt         DateTime        @default(now())
+  conversationId    String
+  conversation      Conversation    @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  
+  role              String          // user, agent, system
+  content           String          @db.Text
+  audioUrl          String?
+  metadata          Json?
+  isFlagged         Boolean         @default(false)
+}
+
+model LeadData {
+  id                    String          @id @default(uuid())
+  createdAt             DateTime        @default(now())
+  conversationId        String          @unique
+  conversation          Conversation    @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  
+  name                  String
+  email                 String
+  company               String?
+  phone                 String?
+  qualified             Boolean         @default(false)
+  qualificationScore    Float?
+  meetingScheduled      Boolean         @default(false)
+  meetingTime           DateTime?
+  crmSynced             Boolean         @default(false)
+  crmId                 String?
+  customFields          Json?
+}
+
+model Workflow {
+  id                String          @id @default(uuid())
+  createdAt         DateTime        @default(now())
+  agentId           String
+  agent             Agent           @relation(fields: [agentId], references: [id], onDelete: Cascade)
+  
+  name              String
+  description       String          @db.Text
+  trigger           String          // lead_qualified, meeting_scheduled
+  actions           Json            // Array of workflow steps
+  isActive          Boolean         @default(true)
+  executionCount    Int             @default(0)
+  successCount      Int             @default(0)
+}
+
+model Integration {
+  id                String          @id @default(uuid())
+  createdAt         DateTime        @default(now())
+  userId            String
+  user              User            @relation(fields: [userId], references: [id])
+  
+  type              String          // twilio, calendar, crm
+  provider          String          // google, salesforce, hubspot
+  credentials       String          @db.Text  // Encrypted JSON
+  isActive          Boolean         @default(true)
+  lastSyncedAt      DateTime?
+  syncStatus        String?         // success, failed, pending
+  errorCount        Int             @default(0)
+  
+  logs              IntegrationLog[]
+}
+
+model IntegrationLog {
+  id                String          @id @default(uuid())
+  createdAt         DateTime        @default(now())
+  integrationId     String
+  integration       Integration     @relation(fields: [integrationId], references: [id], onDelete: Cascade)
+  
+  action            String          // call_created, lead_synced, etc
+  status            String          // success, failed
+  errorMessage      String?         @db.Text
+  metadata          Json?
+}
+
+model AuditLog {
+  id                String          @id @default(uuid())
+  createdAt         DateTime        @default(now())
+  userId            String?
+  user              User?           @relation(fields: [userId], references: [id])
+  
+  action            String          // login, agent_created, user_deleted, etc
+  resource          String          // agent, user, conversation
+  resourceId        String?
+  details           Json?
+  ipAddress         String?
+  userAgent         String?
+}
+
+model SystemMetrics {
+  id                    String      @id @default(uuid())
+  timestamp             DateTime    @default(now())
+  
+  // Service Health
+  backendStatus         String      // healthy, degraded, down
+  milvusStatus          String
+  redisStatus           String
+  dbStatus              String
+  
+  // Performance
+  avgResponseTime       Float
+  activeConnections     Int
+  queuedJobs            Int
+  
+  // Usage
+  totalAgents           Int
+  activeAgents          Int
+  totalConversations    Int
+  activeConversations   Int
+  
+  // Resources
+  cpuUsage              Float
+  memoryUsage           Float
+  diskUsage             Float
+  milvusStorage         BigInt
+}
+
+model AgentMetrics {
+  id                  String        @id @default(uuid())
+  timestamp           DateTime      @default(now())
+  agentId             String
+  agent               Agent         @relation(fields: [agentId], references: [id], onDelete: Cascade)
+  
+  conversationsToday  Int
+  avgResponseTime     Float
+  successRate         Float
+  errorCount          Int
+  voiceMinutes        Float?
+  llmTokensUsed       Int
+  llmCostUsd          Float
+}
+
+model Anomaly {
+  id                String          @id @default(uuid())
+  detectedAt        DateTime        @default(now())
+  
+  type              String          // spike, drop, error_rate, cost_spike, abuse
+  severity          String          // low, medium, high, critical
+  resource          String          // agent, user, system
+  resourceId        String?
+  
+  description       String          @db.Text
+  metrics           Json            // Relevant metrics
+  isResolved        Boolean         @default(false)
+  resolvedAt        DateTime?
+  resolvedBy        String?
+}
+
+model PlatformStats {
+  id                      String      @id @default(uuid())
+  date                    DateTime    @default(now()) @unique
+  
+  // User Metrics
+  totalUsers              Int
+  activeUsers             Int
+  newUsers                Int
+  paidUsers               Int
+  
+  // Agent Metrics
+  totalAgents             Int
+  activeAgents            Int
+  newAgents               Int
+  
+  // Conversation Metrics
+  totalConversations      Int
+  textConversations       Int
+  voiceConversations      Int
+  avgConversationDuration Float
+  
+  // Lead Metrics
+  totalLeads              Int
+  qualifiedLeads          Int
+  meetingsScheduled       Int
+  conversionRate          Float
+  
+  // Financial
+  revenueUsd              Float
+  llmCostUsd              Float
+  profitUsd               Float
+  
+  // Integration Usage
+  twilioMinutes           Float
+  calendarBookings        Int
+  crmSyncs                Int
+}
