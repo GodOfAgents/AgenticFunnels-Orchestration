@@ -314,3 +314,84 @@ page AdminMessagesPage {
   component: import AdminMessages from "@src/admin/dashboards/messages/MessagesPage"
 }
 //#endregion
+
+//#region AFO Platform - Agents
+route AgentsRoute { path: "/agents", to: AgentsPage }
+page AgentsPage {
+  authRequired: true,
+  component: import AgentsPage from "@src/afo/agents/AgentsPage"
+}
+
+route AgentCreateRoute { path: "/agent/create", to: AgentCreatePage }
+page AgentCreatePage {
+  authRequired: true,
+  component: import AgentCreatePage from "@src/afo/agents/AgentCreatePage"
+}
+
+route AgentDetailRoute { path: "/agent/:id", to: AgentDetailPage }
+page AgentDetailPage {
+  authRequired: true,
+  component: import AgentDetailPage from "@src/afo/agents/AgentDetailPage"
+}
+//#endregion
+
+//#region AFO Platform - Conversations
+route ConversationsRoute { path: "/conversations", to: ConversationsPage }
+page ConversationsPage {
+  authRequired: true,
+  component: import ConversationsPage from "@src/afo/conversations/ConversationsPage"
+}
+
+route ConversationDetailRoute { path: "/conversation/:id", to: ConversationDetailPage }
+page ConversationDetailPage {
+  authRequired: true,
+  component: import ConversationDetailPage from "@src/afo/conversations/ConversationDetailPage"
+}
+//#endregion
+
+//#region AFO Platform - Knowledge Base
+route KnowledgeRoute { path: "/knowledge", to: KnowledgePage }
+page KnowledgePage {
+  authRequired: true,
+  component: import KnowledgePage from "@src/afo/knowledge/KnowledgePage"
+}
+//#endregion
+
+//#region AFO Platform - Integrations
+route IntegrationsRoute { path: "/integrations", to: IntegrationsPage }
+page IntegrationsPage {
+  authRequired: true,
+  component: import IntegrationsPage from "@src/afo/integrations/IntegrationsPage"
+}
+//#endregion
+
+//#region AFO Platform - Admin Extensions
+route AdminAgentsRoute { path: "/admin/afo/agents", to: AdminAgentsPage }
+page AdminAgentsPage {
+  authRequired: true,
+  component: import AdminAgentsPage from "@src/afo/admin/AdminAgentsPage"
+}
+
+route AdminConversationsRoute { path: "/admin/afo/conversations", to: AdminConversationsPage }
+page AdminConversationsPage {
+  authRequired: true,
+  component: import AdminConversationsPage from "@src/afo/admin/AdminConversationsPage"
+}
+
+route AdminAnomaliesRoute { path: "/admin/afo/anomalies", to: AdminAnomaliesPage }
+page AdminAnomaliesPage {
+  authRequired: true,
+  component: import AdminAnomaliesPage from "@src/afo/admin/AdminAnomaliesPage"
+}
+
+route AdminSystemRoute { path: "/admin/afo/system", to: AdminSystemPage }
+page AdminSystemPage {
+  authRequired: true,
+  component: import AdminSystemPage from "@src/afo/admin/AdminSystemPage"
+}
+//#endregion
+
+route NotFoundRoute { path: "*", to: NotFoundPage }
+page NotFoundPage {
+  component: import { NotFoundPage } from "@src/client/components/NotFoundPage"
+}
