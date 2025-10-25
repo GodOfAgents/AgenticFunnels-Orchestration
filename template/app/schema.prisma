@@ -14,6 +14,8 @@ model User {
   email                     String?         @unique
   username                  String?         @unique
   isAdmin                   Boolean         @default(false)
+  adminRole                 String?         // null, 'support', 'admin', 'super_admin'
+  adminPermissions          Json?           // Granular permissions
 
   paymentProcessorUserId    String?         @unique
   lemonSqueezyCustomerPortalUrl String?     // You can delete this if you're not using Lemon Squeezy as your payments processor.
@@ -26,6 +28,9 @@ model User {
   contactFormMessages       ContactFormMessage[]
   tasks                     Task[]
   files                     File[]
+  agents                    Agent[]
+  integrations              Integration[]
+  auditLogs                 AuditLog[]
 }
 
 model GptResponse {
