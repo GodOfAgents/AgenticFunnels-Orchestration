@@ -10,11 +10,9 @@ openai==1.54.3
 langchain==0.3.7
 langchain-openai==0.2.8
 langchain-community==0.3.5
-pipecat-ai==0.0.45
 
 # Vector DB
 pymilvus==2.4.9
-sentence-transformers==3.3.1
 
 # Database
 psycopg2-binary==2.9.10
@@ -23,12 +21,10 @@ asyncpg==0.30.0
 
 # Redis
 redis==5.2.0
-aioredis==2.0.1
 
 # Document Processing
 pypdf==5.1.0
 python-docx==1.1.2
-python-pptx==1.0.2
 beautifulsoup4==4.12.3
 markdown==3.7
 
@@ -47,7 +43,6 @@ passlib[bcrypt]==1.7.4
 python-dotenv==1.0.1
 httpx==0.27.2
 aiofiles==24.1.0
-python-magic==0.4.27
 
 # Monitoring
 prometheus-client==0.21.0
