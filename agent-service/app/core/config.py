@@ -26,7 +26,7 @@ class Settings(BaseSettings):
     ENCRYPTION_KEY: str = os.getenv("ENCRYPTION_KEY", "")
     
     # CORS
-    ALLOWED_ORIGINS: List[str] = os.getenv("ALLOWED_ORIGINS", "http://localhost:3000").split(",")
+    ALLOWED_ORIGINS: List[str] = ["http://localhost:3000", "http://localhost:3001"]
     
     # WebSocket
     WS_MAX_CONNECTIONS: int = int(os.getenv("WS_MAX_CONNECTIONS", "1000"))
