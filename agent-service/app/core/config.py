@@ -34,9 +34,5 @@ class Settings(BaseSettings):
     # Monitoring
     ENABLE_METRICS: bool = os.getenv("ENABLE_METRICS", "true").lower() == "true"
     METRICS_PORT: int = int(os.getenv("METRICS_PORT", "9090"))
-    
-    class Config:
-        env_file = ".env"
-        case_sensitive = True
 
 settings = Settings()
