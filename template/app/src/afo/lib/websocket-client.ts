@@ -2,7 +2,8 @@
  * WebSocket Client for Real-time Communication
  */
 
-const WS_URL = 'ws://localhost:8001';
+// Use environment variable for WebSocket URL, fallback to localhost for development
+const WS_URL = process.env.REACT_APP_WS_URL || 'ws://localhost:8001';
 
 type MessageHandler = (data: any) => void;
 
