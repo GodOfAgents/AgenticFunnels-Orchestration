@@ -23,10 +23,10 @@ class Settings:
     ENVIRONMENT: str = os.getenv("ENVIRONMENT", "development")
     
     # Security
-    SECRET_KEY: str = os.getenv("SECRET_KEY", "your-secret-key-here")
+    SECRET_KEY: str = os.getenv("SECRET_KEY", "")
     ENCRYPTION_KEY: str = os.getenv("ENCRYPTION_KEY", "")
     
-    # CORS
+    # CORS - Read from environment variable, support multiple origins separated by comma
     ALLOWED_ORIGINS: List[str] = None
     
     # WebSocket
@@ -38,6 +38,15 @@ class Settings:
     
     def __post_init__(self):
         if self.ALLOWED_ORIGINS is None:
-            self.ALLOWED_ORIGINS = ["http://localhost:3000", "http://localhost:3001"]
+            # Read from environment or use defaults
+            origins_str = os.getenv("ALLOWED_ORIGINS", "http://localhost:3000,http://localhost:3001")
+            self.ALLOWED_ORIGINS = [origin.strip() for origin in origins_str.split(",")]
+        
+        # Validate required settings in production
+        if self.ENVIRONMENT == "production":
+            if not self.SECRET_KEY or self.SECRET_KEY == "your-secret-key-here":
+                raise ValueError("SECRET_KEY must be set in production environment")
+            if not self.OPENAI_API_KEY:
+                raise ValueError("OPENAI_API_KEY must be set in production environment")
 
 settings = Settings()
