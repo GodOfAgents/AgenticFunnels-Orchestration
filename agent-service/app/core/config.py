@@ -1,8 +1,10 @@
-from pydantic_settings import BaseSettings
+from pydantic_settings import BaseSettings, SettingsConfigDict
 from typing import List
 import os
 
 class Settings(BaseSettings):
+    model_config = SettingsConfigDict(env_file=None, env_file_encoding='utf-8')
+    
     # Database
     DATABASE_URL: str = os.getenv("DATABASE_URL", "postgresql://user:password@localhost:5432/opensaas")
     
