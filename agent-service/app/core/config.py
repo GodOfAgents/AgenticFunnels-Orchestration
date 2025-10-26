@@ -1,10 +1,9 @@
-from pydantic_settings import BaseSettings, SettingsConfigDict
+from dataclasses import dataclass
 from typing import List
 import os
 
-class Settings(BaseSettings):
-    model_config = SettingsConfigDict(env_file=None, env_file_encoding='utf-8')
-    
+@dataclass
+class Settings:
     # Database
     DATABASE_URL: str = os.getenv("DATABASE_URL", "postgresql://user:password@localhost:5432/opensaas")
     
@@ -28,7 +27,7 @@ class Settings(BaseSettings):
     ENCRYPTION_KEY: str = os.getenv("ENCRYPTION_KEY", "")
     
     # CORS
-    ALLOWED_ORIGINS: List[str] = ["http://localhost:3000", "http://localhost:3001"]
+    ALLOWED_ORIGINS: List[str] = None
     
     # WebSocket
     WS_MAX_CONNECTIONS: int = int(os.getenv("WS_MAX_CONNECTIONS", "1000"))
@@ -36,5 +35,9 @@ class Settings(BaseSettings):
     # Monitoring
     ENABLE_METRICS: bool = os.getenv("ENABLE_METRICS", "true").lower() == "true"
     METRICS_PORT: int = int(os.getenv("METRICS_PORT", "9090"))
+    
+    def __post_init__(self):
+        if self.ALLOWED_ORIGINS is None:
+            self.ALLOWED_ORIGINS = ["http://localhost:3000", "http://localhost:3001"]
 
 settings = Settings()
