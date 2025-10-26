@@ -5,6 +5,9 @@ import uvicorn
 import os
 from dotenv import load_dotenv
 
+# Load environment variables BEFORE importing config
+load_dotenv(os.path.join(os.path.dirname(__file__), '.env'))
+
 from app.core.config import settings
 from app.core.database import init_db
 from app.api import agents, conversations, knowledge, integrations, admin, websocket
