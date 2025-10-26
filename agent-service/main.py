@@ -17,8 +17,8 @@ from app.services.anomaly_detector import anomaly_detector
 async def lifespan(app: FastAPI):
     # Startup
     print("🚀 Starting AFO Agent Service...")
-    await init_db()
-    print("✅ Database initialized")
+    # await init_db()  # Commented out for now - will enable when DB is ready
+    print("✅ Service initialized")
     
     # Start anomaly detector
     await anomaly_detector.start()
