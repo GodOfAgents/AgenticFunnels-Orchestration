@@ -16,11 +16,13 @@ export default function WorkflowBuilderPage({ user }: any) {
   const loadWorkflows = async () => {
     try {
       setLoading(true);
-      // TODO: API call when implemented
-      // const response = await apiClient.listWorkflows(agentId);
-      setWorkflows([]);
+      if (agentId) {
+        const response = await apiClient.listWorkflows(agentId);
+        setWorkflows(response.workflows || []);
+      }
     } catch (error) {
       console.error('Failed to load workflows:', error);
+      setWorkflows([]);
     } finally {
       setLoading(false);
     }
