@@ -5,10 +5,12 @@ from pipecat.processors.aggregators.openai_llm_context import OpenAILLMContext
 from pipecat.services.deepgram import DeepgramSTTService
 from pipecat.services.elevenlabs import ElevenLabsTTSService
 from pipecat.services.openai import OpenAILLMService
-from pipecat.transports.services.daily import DailyParams, DailyTransport
+from pipecat.transports.services.livekit import LiveKitTransport, LiveKitParams
+from livekit import api
 from typing import Optional, Dict
 import asyncio
 import uuid
+import os
 
 class VoiceSessionService:
     """
