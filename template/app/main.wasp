@@ -395,6 +395,14 @@ page WorkflowBuilderPage {
 }
 //#endregion
 
+//#region AFO Platform - Voice
+route VoiceConfigRoute { path: "/voice/config/:agentId", to: VoiceConfigPage }
+page VoiceConfigPage {
+  authRequired: true,
+  component: import VoiceConfigPage from "@src/afo/voice/VoiceConfigPage"
+}
+//#endregion
+
 route NotFoundRoute { path: "*", to: NotFoundPage }
 page NotFoundPage {
   component: import { NotFoundPage } from "@src/client/components/NotFoundPage"
