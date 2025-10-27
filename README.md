@@ -149,6 +149,11 @@ REDIS_URL=redis://localhost:6379
 MILVUS_HOST=localhost
 MILVUS_PORT=19530
 
+# LiveKit Configuration (for voice features)
+LIVEKIT_URL=ws://localhost:7880
+LIVEKIT_API_KEY=devkey
+LIVEKIT_API_SECRET=devsecret
+
 # LLM Integration (if using Emergent LLM key)
 EMERGENT_LLM_KEY=your_emergent_key_here
 ```
