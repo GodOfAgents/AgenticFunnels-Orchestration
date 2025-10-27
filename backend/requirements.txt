@@ -17,6 +17,13 @@ deepgram-sdk==5.2.0
 livekit
 livekit-api
 
+# Qwen 3 Omni (End-to-End Multimodal)
+torch>=2.0.0
+transformers>=4.37.0
+accelerate>=0.26.0
+soundfile>=0.12.1
+numpy>=1.24.0
+
 # Vector DB
 pymilvus==2.4.9
 
