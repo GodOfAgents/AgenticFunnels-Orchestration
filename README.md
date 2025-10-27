@@ -322,7 +322,7 @@ We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) f
 
 ## 🐛 Known Issues
 
-- Voice session creation requires valid Daily.co room URL
+- Voice session creation requires LiveKit server running (included in docker-compose)
 - Google Calendar integration requires complete OAuth2 credentials
 - Calendly API endpoint may experience DNS resolution issues (intermittent)
 
