@@ -332,6 +332,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🙏 Acknowledgments
 
+- [LiveKit](https://livekit.io/) - Open-source WebRTC infrastructure
 - [Pipecat](https://github.com/pipecat-ai/pipecat) - Real-time voice pipeline
 - [OpenSaaS](https://opensaas.sh/) - Base SaaS template
 - [FastAPI](https://fastapi.tiangolo.com/) - Modern Python web framework
