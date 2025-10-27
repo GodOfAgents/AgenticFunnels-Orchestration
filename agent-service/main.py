@@ -9,7 +9,7 @@ from dotenv import load_dotenv
 load_dotenv(os.path.join(os.path.dirname(__file__), '.env'))
 
 from app.core.config import settings
-from app.api import agents, conversations, knowledge, integrations, admin, websocket, voice
+from app.api import agents, conversations, knowledge, integrations, admin, websocket, voice, workflows, phase2
 from app.services.websocket_manager import ws_manager
 from app.services.anomaly_detector import anomaly_detector
 
