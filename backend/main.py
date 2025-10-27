@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 import uvicorn
 import os
+import asyncio
 from dotenv import load_dotenv
 
 # Load environment variables BEFORE importing config
