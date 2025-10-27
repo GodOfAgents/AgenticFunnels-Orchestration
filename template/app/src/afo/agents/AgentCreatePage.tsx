@@ -14,6 +14,8 @@ export default function AgentCreatePage({ user }: any) {
     systemPrompt: '',
     voiceEnabled: false,
     voiceId: '',
+    deepgramApiKey: '',
+    elevenLabsApiKey: '',
   });
 
   const handleChange = (field: string, value: any) => {
