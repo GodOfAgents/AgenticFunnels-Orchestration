@@ -96,7 +96,7 @@ class VoiceSessionService:
             )
             
             # Create pipeline task
-            task = PipelineTask(pipeline, PipelineParams(allow_interruptions=True))
+            task = PipelineTask(pipeline, params=PipelineParams(allow_interruptions=True))
             
             # Store active session
             self.active_sessions[session_id] = task
