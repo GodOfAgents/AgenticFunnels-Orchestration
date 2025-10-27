@@ -1,0 +1,62 @@
+# LiveKit Server Configuration for AFO Platform
+# This is a development configuration - adjust for production
+
+port: 7880
+bind_addresses:
+  - ""
+
+rtc:
+  # Port range for UDP (adjust based on expected concurrent connections)
+  port_range_start: 50000
+  port_range_end: 50200
+  # Use mDNS for ICE in local development
+  use_external_ip: false
+  # For production, set your server's public IP
+  # node_ip: "your.public.ip"
+  
+  # TURN server configuration (optional, for better connectivity)
+  # turn_servers:
+  #   - host: turn.example.com
+  #     port: 3478
+  #     username: livekit
+  #     credential: password
+
+redis:
+  address: redis-livekit:6379
+
+# API keys for development
+# Generate new keys for production: https://docs.livekit.io/deploy/
+keys:
+  devkey: devsecret
+
+# Room settings
+room:
+  # Maximum duration of a room (in seconds, 0 = unlimited)
+  max_duration: 0
+  # Time to keep room open after last participant leaves
+  empty_timeout: 300
+  # Automatically create rooms on join
+  auto_create: true
+
+# Logging
+logging:
+  level: info
+  # json: true  # Enable for production
+  # file: /var/log/livekit.log
+
+# Webhooks for room events (optional)
+# webhook:
+#   urls:
+#     - http://backend:8001/api/webhooks/livekit
+#   api_key: your_webhook_secret
+
+# Limits
+limits:
+  # Maximum number of participants per room
+  num_participants: 50
+  # Maximum bytes per second per participant
+  bytes_per_sec: 10_000_000
+
+# Development mode
+# Turn off for production
+development: true
