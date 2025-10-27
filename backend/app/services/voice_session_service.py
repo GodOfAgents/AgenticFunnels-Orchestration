@@ -122,7 +122,9 @@ class VoiceSessionService:
             
             return {
                 "session_id": session_id,
-                "room_url": transport.room_url,
+                "room_name": room_name,
+                "livekit_url": self.livekit_url,
+                "access_token": access_token,
                 "status": "active",
                 "agent_id": agent_id
             }
