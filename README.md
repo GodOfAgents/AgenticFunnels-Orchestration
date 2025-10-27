@@ -58,7 +58,7 @@ AFO (Agentic Funnel Orchestration) is an enterprise-grade platform that enables 
 ┌─────────────────────────────────────────────────────────────┐
 │                     Frontend (React/Wasp)                    │
 │  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌──────────┐   │
-│  │  Agents  │  │Workflows │  │  Voice   │  │  Admin   │   │
+│  │ Landing  │  │  Agents  │  │Workflows │  │Dashboard │   │
 │  └──────────┘  └──────────┘  └──────────┘  └──────────┘   │
 └─────────────────────────────────────────────────────────────┘
                             │
@@ -66,20 +66,20 @@ AFO (Agentic Funnel Orchestration) is an enterprise-grade platform that enables 
                             │
 ┌─────────────────────────────────────────────────────────────┐
 │                    Backend (FastAPI)                         │
+│  ┌──────────────────────────────────────────────────────┐  │
+│  │            Qwen 3 Omni (End-to-End Voice AI)         │  │
+│  │  STT + LLM + TTS in Single Model • 211ms latency     │  │
+│  └──────────────────────────────────────────────────────┘  │
 │  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌──────────┐   │
-│  │ Agents   │  │Workflows │  │  Voice   │  │Knowledge │   │
-│  │ Service  │  │ Service  │  │ Session  │  │ Service  │   │
-│  └──────────┘  └──────────┘  └──────────┘  └──────────┘   │
-│  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌──────────┐   │
-│  │Calendar  │  │ Webhook  │  │Anomaly   │  │WebSocket │   │
-│  │ Service  │  │ Service  │  │Detector  │  │ Manager  │   │
+│  │ Agents   │  │Workflows │  │Knowledge │  │Calendar  │   │
+│  │ Service  │  │ Service  │  │ Service  │  │ Service  │   │
 │  └──────────┘  └──────────┘  └──────────┘  └──────────┘   │
 └─────────────────────────────────────────────────────────────┘
                             │
         ┌───────────────────┼───────────────────┐
         │                   │                   │
     ┌───────┐          ┌────────┐          ┌────────┐
-    │MongoDB│          │ Milvus │          │ Redis  │
+    │MongoDB│          │ Milvus │          │LiveKit │
     └───────┘          └────────┘          └────────┘
 ```
 
