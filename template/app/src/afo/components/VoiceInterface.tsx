@@ -87,10 +87,15 @@ export default function VoiceInterface({
           <div>
             <h2 className="text-2xl font-bold text-gray-900">Voice Conversation</h2>
             <p className="text-sm text-gray-600 mt-1">
-              {isConnected ? (
+              {error ? (
+                <span className="flex items-center text-red-600">
+                  <span className="w-2 h-2 bg-red-500 rounded-full mr-2"></span>
+                  {error}
+                </span>
+              ) : isConnected ? (
                 <span className="flex items-center">
                   <span className="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse"></span>
-                  Connected
+                  Connected {sessionId && `(${sessionId.substring(0, 8)}...)`}
                 </span>
               ) : (
                 <span className="flex items-center">
