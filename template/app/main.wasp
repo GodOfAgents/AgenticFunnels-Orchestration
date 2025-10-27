@@ -387,6 +387,14 @@ page AdminSystemPage {
 }
 //#endregion
 
+//#region AFO Platform - Workflows
+route WorkflowsRoute { path: "/workflows/:agentId", to: WorkflowBuilderPage }
+page WorkflowBuilderPage {
+  authRequired: true,
+  component: import WorkflowBuilderPage from "@src/afo/workflows/WorkflowBuilderPage"
+}
+//#endregion
+
 route NotFoundRoute { path: "*", to: NotFoundPage }
 page NotFoundPage {
   component: import { NotFoundPage } from "@src/client/components/NotFoundPage"
