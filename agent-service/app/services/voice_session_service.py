@@ -70,6 +70,7 @@ class VoiceSessionService:
             transport = DailyTransport(
                 room_url=room_url or f"https://daily.co/{session_id}",
                 token=None,  # Generate Daily token if needed
+                bot_name=f"afo-agent-{agent_id[:8]}",
                 params=transport_params
             )
             
