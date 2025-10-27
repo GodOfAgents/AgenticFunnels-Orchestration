@@ -115,7 +115,13 @@ npm install
 yarn install
 ```
 
-4. **Start Services**
+4. **Start LiveKit Server (Docker)**
+```bash
+# Start LiveKit and Redis for voice features
+docker-compose up -d livekit redis-livekit
+```
+
+5. **Start Services**
 ```bash
 # Start backend
 cd backend
