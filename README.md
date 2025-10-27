@@ -88,6 +88,7 @@ AFO (Agentic Funnel Orchestration) is an enterprise-grade platform that enables 
 - MongoDB 6.0+
 - Redis 7.0+
 - Milvus 2.3+ (optional for vector search)
+- Docker & Docker Compose (for LiveKit)
 
 ### Installation
 
