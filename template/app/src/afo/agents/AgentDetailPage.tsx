@@ -75,10 +75,22 @@ export default function AgentDetailPage() {
               {agent.isActive ? 'Active' : 'Inactive'}
             </span>
             <button
+              onClick={() => history.push(`/workflows/${agent.id}`)}
+              className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700"
+            >
+              Workflows
+            </button>
+            <button
+              onClick={() => history.push(`/voice/config/${agent.id}`)}
+              className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700"
+            >
+              Voice Setup
+            </button>
+            <button
               onClick={() => history.push(`/conversations?agent_id=${agent.id}`)}
               className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
             >
-              View Conversations
+              Conversations
             </button>
           </div>
         </div>
