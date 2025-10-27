@@ -14,12 +14,15 @@ import os
 
 class VoiceSessionService:
     """
-    Voice Session Management using Pipecat
+    Voice Session Management using Pipecat + LiveKit
     Handles real-time voice conversations with user-specific API keys
     """
     
     def __init__(self):
         self.active_sessions: Dict[str, PipelineTask] = {}
+        self.livekit_url = os.getenv("LIVEKIT_URL", "ws://localhost:7880")
+        self.livekit_api_key = os.getenv("LIVEKIT_API_KEY", "devkey")
+        self.livekit_api_secret = os.getenv("LIVEKIT_API_SECRET", "devsecret")
     
     async def create_voice_session(
         self,
