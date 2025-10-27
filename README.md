@@ -13,15 +13,20 @@ AFO (Agentic Funnel Orchestration) is an enterprise-grade platform that enables 
 
 ### Key Features
 
-- **🎙️ Multimodal Communication** - Voice (Pipecat + Deepgram + ElevenLabs) and text-based interactions
-- **🤖 Agent Persona Configuration** - Customizable AI personalities and behaviors
+- **🎙️ End-to-End Voice AI** - Single model (Qwen 3 Omni) handles STT + LLM + TTS with 211ms latency
+- **🤖 Agent Persona Configuration** - 17 voice personas, customizable behaviors
 - **📚 RAG-Powered Knowledge Base** - Vector search with Milvus for context-aware responses
 - **⚙️ Workflow Orchestration** - Visual workflow builder with pre-built templates
 - **📅 Calendar Integration** - Google Calendar and Calendly scheduling
 - **🔗 CRM Integration** - Webhook-based integration with popular CRMs
-- **🔐 Multi-tenant Architecture** - BYOK (Bring Your Own Keys) security model
+- **🌍 Multi-Language Support** - 19 input languages, 10 output languages with auto-detection
+- **🎭 17 Voice Personas** - Professional, friendly, casual - match your brand
+- **🎥 Video Support** - Screen sharing during calls for enhanced support
+- **😊 Emotion Detection** - Understands tone and urgency from voice
+- **🔐 Multi-tenant Architecture** - Complete data isolation per tenant
 - **📊 Real-time Analytics** - Live monitoring, conversation history, and anomaly detection
 - **👥 Admin Dashboard** - Comprehensive management and monitoring tools
+- **💰 85% Cost Savings** - Self-hosted option, no per-minute charges
 
 ## 🏗️ Architecture
 
