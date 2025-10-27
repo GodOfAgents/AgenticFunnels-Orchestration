@@ -15,7 +15,7 @@ langchain-community==0.3.5
 pipecat-ai[livekit,deepgram]==0.0.45
 deepgram-sdk==5.2.0
 livekit==0.17.0
-livekit-api==0.6.1
+livekit-api==1.0.7
 
 # Vector DB
 pymilvus==2.4.9
