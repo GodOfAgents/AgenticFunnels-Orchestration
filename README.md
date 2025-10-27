@@ -126,7 +126,16 @@ yarn install
 docker-compose up -d livekit redis-livekit
 ```
 
-5. **Start Services**
+5. **Download Qwen 3 Omni Model (Optional - for voice features)**
+```bash
+cd backend
+python -c "from transformers import AutoModelForCausalLM; \
+           AutoModelForCausalLM.from_pretrained('Qwen/Qwen3-Omni-30B-A3B-Instruct')"
+# Note: ~60GB download, requires GPU with 14GB+ VRAM
+# Skip this for development - use text-only features first
+```
+
+6. **Start Services**
 ```bash
 # Start backend
 cd backend
