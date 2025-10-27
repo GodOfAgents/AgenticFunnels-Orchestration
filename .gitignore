@@ -175,3 +175,7 @@ site/
 *.bak
 *.backup
 .history/
+-e 
+# Environment files
+*.env
+*.env.*
