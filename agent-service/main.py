@@ -53,6 +53,8 @@ app.include_router(conversations.router, prefix="/api/conversations", tags=["Con
 app.include_router(knowledge.router, prefix="/api/knowledge", tags=["Knowledge Base"])
 app.include_router(integrations.router, prefix="/api/integrations", tags=["Integrations"])
 app.include_router(voice.router, prefix="/api/voice", tags=["Voice/TTS"])
+app.include_router(workflows.router, prefix="/api/workflows", tags=["Workflows"])
+app.include_router(phase2.router, prefix="/api/phase2", tags=["Phase 2 Services"])
 app.include_router(admin.router, prefix="/api/admin", tags=["Admin"])
 app.include_router(websocket.router, prefix="/ws", tags=["WebSocket"])
 
