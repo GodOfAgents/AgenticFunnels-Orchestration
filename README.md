@@ -168,6 +168,10 @@ LIVEKIT_URL=ws://localhost:7880
 LIVEKIT_API_KEY=devkey
 LIVEKIT_API_SECRET=devsecret
 
+# Qwen 3 Omni Configuration (optional - for voice AI)
+QWEN_MODEL_ID=Qwen/Qwen3-Omni-30B-A3B-Instruct
+QWEN_DEVICE=cuda  # or 'cpu' for CPU-only
+
 # LLM Integration (if using Emergent LLM key)
 EMERGENT_LLM_KEY=your_emergent_key_here
 ```
