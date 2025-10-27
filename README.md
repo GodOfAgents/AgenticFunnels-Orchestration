@@ -33,6 +33,7 @@ AFO (Agentic Funnel Orchestration) is an enterprise-grade platform that enables 
 - **Milvus** - Vector database for RAG and semantic search
 - **Redis** - Caching and real-time messaging
 - **Pipecat** - Real-time voice pipeline orchestration
+- **LiveKit** - Open-source WebRTC infrastructure
 - **Deepgram** - Speech-to-Text (STT)
 - **ElevenLabs** - Text-to-Speech (TTS)
 
