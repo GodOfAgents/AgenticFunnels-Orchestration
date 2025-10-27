@@ -145,19 +145,66 @@ Always be helpful, courteous, and focused on the customer's needs.`;
       </div>
 
       {formData.voiceEnabled && (
-        <div className="pl-8">
-          <label className="block text-sm font-medium text-gray-700 mb-2">Voice ID</label>
-          <input
-            type="text"
-            value={formData.voiceId}
-            onChange={(e) => handleChange('voiceId', e.target.value)}
-            placeholder="ElevenLabs Voice ID"
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            data-testid="voice-id-input"
-          />
-          <p className="text-sm text-gray-600 mt-2">
-            Add your ElevenLabs integration in Settings to select from available voices.
-          </p>
+        <div className="pl-8 space-y-4">
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">Voice ID</label>
+            <input
+              type="text"
+              value={formData.voiceId}
+              onChange={(e) => handleChange('voiceId', e.target.value)}
+              placeholder="ElevenLabs Voice ID (e.g., EXAVITQu4vr4xnSDxMaL)"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              data-testid="voice-id-input"
+            />
+          </div>
+
+          <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+            <h4 className="font-medium text-yellow-900 mb-2">🔑 Voice API Keys Required</h4>
+            <p className="text-sm text-yellow-800 mb-3">
+              To enable voice conversations, you need to provide your own API keys:
+            </p>
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Deepgram API Key (Speech-to-Text)
+            </label>
+            <input
+              type="password"
+              value={formData.deepgramApiKey}
+              onChange={(e) => handleChange('deepgramApiKey', e.target.value)}
+              placeholder="Enter your Deepgram API key"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              data-testid="deepgram-key-input"
+            />
+            <p className="text-xs text-gray-600 mt-1">
+              Get your key from <a href="https://deepgram.com" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">deepgram.com</a>
+            </p>
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              ElevenLabs API Key (Text-to-Speech)
+            </label>
+            <input
+              type="password"
+              value={formData.elevenLabsApiKey}
+              onChange={(e) => handleChange('elevenLabsApiKey', e.target.value)}
+              placeholder="Enter your ElevenLabs API key"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              data-testid="elevenlabs-key-input"
+            />
+            <p className="text-xs text-gray-600 mt-1">
+              Get your key from <a href="https://elevenlabs.io" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">elevenlabs.io</a>
+            </p>
+          </div>
+
+          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+            <h4 className="font-medium text-blue-900 mb-2">🔒 Security Note</h4>
+            <p className="text-sm text-blue-800">
+              Your API keys are encrypted and stored securely. They are only used for your agent's voice sessions.
+            </p>
+          </div>
         </div>
       )}
 
@@ -168,6 +215,12 @@ Always be helpful, courteous, and focused on the customer's needs.`;
           <div><span className="font-medium">Role:</span> {formData.role}</div>
           <div><span className="font-medium">Persona:</span> {formData.persona}</div>
           <div><span className="font-medium">Voice:</span> {formData.voiceEnabled ? 'Enabled' : 'Disabled'}</div>
+          {formData.voiceEnabled && (
+            <>
+              <div><span className="font-medium">Deepgram Key:</span> {formData.deepgramApiKey ? '••••••••' : 'Not provided'}</div>
+              <div><span className="font-medium">ElevenLabs Key:</span> {formData.elevenLabsApiKey ? '••••••••' : 'Not provided'}</div>
+            </>
+          )}
         </div>
       </div>
     </div>
