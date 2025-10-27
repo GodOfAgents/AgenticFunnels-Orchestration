@@ -332,20 +332,33 @@ We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) f
 - [x] Knowledge base with vector search
 - [x] Basic integrations (CRM, webhooks)
 - [x] Admin dashboard
+- [x] Landing page with feature showcase
 
 ### Phase 2 (✅ Complete)
-- [x] Voice capabilities (Deepgram + ElevenLabs + Pipecat)
+- [x] **Qwen 3 Omni integration** (end-to-end voice AI)
+- [x] **LiveKit** (open-source WebRTC)
 - [x] Workflow orchestration
 - [x] Calendar integrations (Google, Calendly)
 - [x] Enhanced webhook system
 - [x] Voice configuration UI
+- [x] **17 voice personas**
+- [x] **19 input languages, 10 output**
+- [x] **Emotion detection**
+- [x] **Video support**
 
-### Phase 3 (🚧 Planned)
+### Phase 3 (🚧 In Progress)
+- [ ] Visual workflow builder (drag-and-drop)
+- [ ] Dashboard with live monitoring
+- [ ] Analytics dashboard enhancements
+- [ ] Multi-language support UI
+- [ ] Agent templates library
+
+### Phase 4 (🔜 Planned)
 - [ ] Twilio integration for phone calls
 - [ ] WebRTC direct calling
 - [ ] Advanced workflow templates
-- [ ] Multi-language support
-- [ ] Analytics dashboard enhancements
+- [ ] A/B testing for agents
+- [ ] Custom voice training
 - [ ] Mobile app
 
 ## 🐛 Known Issues
