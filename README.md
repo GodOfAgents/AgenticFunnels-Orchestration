@@ -238,23 +238,29 @@ Full API documentation available at: `http://localhost:8001/docs` (Swagger UI)
 
 ## 🎯 Use Cases
 
-### 1. Lead Qualification & Scheduling
+### 1. Lead Qualification & Scheduling (Powered by Qwen 3 Omni)
 ```
-Customer Contact → AI Agent → Intent Recognition
-                                ├─ Info Request → RAG Response
-                                └─ Schedule Meeting → Collect Details
-                                                   → Calendar Integration
-                                                   → Send Confirmation
-                                                   → CRM Update
+Customer Contact → Qwen 3 Omni Agent
+    ↓
+Intent Recognition (voice + emotion)
+    ├─ Information Request → RAG-powered Response
+    └─ Schedule Meeting → Collect Details
+                        → Check Calendar Availability
+                        → Send Confirmation
+                        → Update CRM
 ```
 
 ### 2. Customer Support
 - 24/7 automated support via voice or text
+- Emotion detection for better empathy
 - Knowledge base-powered responses
+- Video support with screen sharing
 - Ticket creation and routing
 - Escalation to human agents
 
 ### 3. Sales Outreach
+- Multi-language support (19 languages)
+- 17 voice personas for brand matching
 - Automated follow-ups
 - Product demonstrations
 - Meeting scheduling
