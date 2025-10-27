@@ -1,0 +1,53 @@
+fastapi==0.115.0
+uvicorn[standard]==0.32.0
+websockets==13.1
+python-multipart==0.0.12
+pydantic==2.9.2
+pydantic-settings==2.6.0
+
+# AI/LLM
+openai==1.54.3
+langchain==0.3.7
+langchain-openai==0.2.8
+langchain-community==0.3.5
+
+# Voice & Audio
+pipecat-ai[daily,deepgram]==0.0.45
+deepgram-sdk==5.2.0
+
+# Vector DB
+pymilvus==2.4.9
+
+# Database
+psycopg2-binary==2.9.10
+sqlalchemy==2.0.36
+asyncpg==0.30.0
+
+# Redis
+redis==5.2.0
+
+# Document Processing
+pypdf==5.1.0
+python-docx==1.1.2
+beautifulsoup4==4.12.3
+markdown==3.7
+
+# Integration SDKs
+twilio==9.3.7
+google-auth==2.36.0
+google-auth-oauthlib==1.2.1
+google-api-python-client==2.154.0
+elevenlabs==1.13.5
+
+# Security
+cryptography==44.0.0
+python-jose[cryptography]==3.3.0
+passlib[bcrypt]==1.7.4
+
+# Utilities
+python-dotenv==1.0.1
+httpx==0.27.2
+aiofiles==24.1.0
+
+# Monitoring
+prometheus-client==0.21.0
