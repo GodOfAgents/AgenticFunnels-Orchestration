@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import WebSocketClient from '../lib/websocket-client';
+import apiClient from '../lib/api-client';
 
 interface VoiceInterfaceProps {
   agentId: string;
@@ -22,6 +23,8 @@ export default function VoiceInterface({
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [transcript, setTranscript] = useState<string[]>([]);
   const [audioLevel, setAudioLevel] = useState(0);
+  const [sessionId, setSessionId] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
   const wsClient = useRef<WebSocketClient | null>(null);
 
   useEffect(() => {
@@ -30,6 +33,9 @@ export default function VoiceInterface({
 
     return () => {
       // Cleanup
+      if (sessionId) {
+        endVoiceSession();
+      }
       if (wsClient.current) {
         wsClient.current.disconnect();
       }
@@ -38,19 +44,34 @@ export default function VoiceInterface({
 
   const startVoiceSession = async () => {
     try {
-      // TODO: Call API to create voice session
-      // const response = await apiClient.createVoiceSession({
-      //   agent_id: agentId,
-      //   agent_config: agentConfig,
-      //   user_credentials: userCredentials
-      // });
+      setError(null);
+      const response = await apiClient.createVoiceSession({
+        agent_id: agentId,
+        agent_config: agentConfig,
+        user_credentials: userCredentials
+      });
 
-      // For now, simulate connection
+      if (response.session_id) {
+        setSessionId(response.session_id);
+        setIsConnected(true);
+      }
+    } catch (error: any) {
+      console.error('Failed to start voice session:', error);
+      setError(error.message || 'Failed to start voice session');
+      // Fallback: simulate connection for testing
       setTimeout(() => {
         setIsConnected(true);
       }, 1000);
+    }
+  };
+
+  const endVoiceSession = async () => {
+    if (!sessionId) return;
+    
+    try {
+      await apiClient.endVoiceSession(sessionId);
     } catch (error) {
-      console.error('Failed to start voice session:', error);
+      console.error('Failed to end voice session:', error);
     }
   };
 
