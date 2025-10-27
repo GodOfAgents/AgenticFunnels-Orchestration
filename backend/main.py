@@ -60,6 +60,7 @@ app.include_router(integrations.router, prefix="/api/integrations", tags=["Integ
 app.include_router(voice.router, prefix="/api/voice", tags=["Voice/TTS"])
 app.include_router(workflows.router, prefix="/api/workflows", tags=["Workflows"])
 app.include_router(phase2.router, prefix="/api/phase2", tags=["Phase 2 Services"])
+app.include_router(qwen_omni.router, prefix="/api/qwen", tags=["Qwen 3 Omni"])
 app.include_router(admin.router, prefix="/api/admin", tags=["Admin"])
 app.include_router(websocket.router, prefix="/ws", tags=["WebSocket"])
 
