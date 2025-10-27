@@ -9,6 +9,9 @@ class AgentBase(BaseModel):
     systemPrompt: str = Field(..., description="System prompt for the agent")
     voiceEnabled: bool = False
     voiceId: Optional[str] = None
+    # Voice API Keys (stored encrypted, user-specific)
+    deepgramApiKey: Optional[str] = Field(None, description="User's Deepgram API key for STT")
+    elevenLabsApiKey: Optional[str] = Field(None, description="User's ElevenLabs API key for TTS")
 
 class AgentCreate(AgentBase):
     userId: str
@@ -20,6 +23,8 @@ class AgentUpdate(BaseModel):
     systemPrompt: Optional[str] = None
     voiceEnabled: Optional[bool] = None
     voiceId: Optional[str] = None
+    deepgramApiKey: Optional[str] = None
+    elevenLabsApiKey: Optional[str] = None
     isActive: Optional[bool] = None
 
 class AgentResponse(AgentBase):
