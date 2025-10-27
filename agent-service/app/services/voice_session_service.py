@@ -5,42 +5,60 @@ from pipecat.processors.aggregators.openai_llm_context import OpenAILLMContext
 from pipecat.services.deepgram import DeepgramSTTService
 from pipecat.services.elevenlabs import ElevenLabsTTSService
 from pipecat.services.openai import OpenAILLMService
-from pipecat.transports.services.daily import DailyParams, DailyTransport
+from pipecat.transports.services.livekit import LiveKitTransport, LiveKitParams
+from livekit import api
 from typing import Optional, Dict
 import asyncio
 import uuid
+import os
 
 class VoiceSessionService:
     """
-    Voice Session Management using Pipecat
+    Voice Session Management using Pipecat + LiveKit
     Handles real-time voice conversations with user-specific API keys
     """
     
     def __init__(self):
         self.active_sessions: Dict[str, PipelineTask] = {}
+        self.livekit_url = os.getenv("LIVEKIT_URL", "ws://localhost:7880")
+        self.livekit_api_key = os.getenv("LIVEKIT_API_KEY", "devkey")
+        self.livekit_api_secret = os.getenv("LIVEKIT_API_SECRET", "devsecret")
     
     async def create_voice_session(
         self,
         agent_id: str,
         agent_config: dict,
         user_credentials: dict,
-        room_url: str = None
+        room_name: str = None
     ) -> dict:
         """
-        Create a new voice session for an agent
+        Create a new voice session for an agent using LiveKit
         
         Args:
             agent_id: Agent ID
             agent_config: Agent configuration (system prompt, etc.)
             user_credentials: User's API keys (deepgram, elevenlabs, openai)
-            room_url: Daily.co room URL for WebRTC (optional)
+            room_name: LiveKit room name (optional, auto-generated if not provided)
         
         Returns:
-            Session details including session_id and connection info
+            Session details including session_id, room_name, and access token
         """
         session_id = str(uuid.uuid4())
+        room_name = room_name or f"afo-session-{session_id[:8]}"
         
         try:
+            # Generate LiveKit access token for the agent
+            token = api.AccessToken(self.livekit_api_key, self.livekit_api_secret)
+            token.with_identity(f"agent-{agent_id[:8]}")
+            token.with_name(f"AFO Agent {agent_config.get('name', 'Assistant')}")
+            token.with_grants(api.VideoGrants(
+                room_join=True,
+                room=room_name,
+                can_publish=True,
+                can_subscribe=True,
+            ))
+            access_token = token.to_jwt()
+            
             # Initialize services with user's API keys
             stt_service = DeepgramSTTService(
                 api_key=user_credentials.get('deepgram_api_key'),
@@ -58,19 +76,17 @@ class VoiceSessionService:
                 model="gpt-4-turbo-preview"
             )
             
-            # Setup transport (Daily.co for WebRTC)
-            transport_params = DailyParams(
+            # Setup transport (LiveKit for WebRTC)
+            transport_params = LiveKitParams(
                 audio_in_enabled=True,
                 audio_out_enabled=True,
-                transcription_enabled=True,
-                vad_enabled=True,
-                vad_audio_passthrough=True
+                video_out_enabled=False,
             )
             
-            transport = DailyTransport(
-                room_url=room_url or f"https://daily.co/{session_id}",
-                token=None,  # Generate Daily token if needed
-                bot_name=f"afo-agent-{agent_id[:8]}",
+            transport = LiveKitTransport(
+                url=self.livekit_url,
+                token=access_token,
+                room_name=room_name,
                 params=transport_params
             )
             
@@ -106,7 +122,9 @@ class VoiceSessionService:
             
             return {
                 "session_id": session_id,
-                "room_url": transport.room_url,
+                "room_name": room_name,
+                "livekit_url": self.livekit_url,
+                "access_token": access_token,
                 "status": "active",
                 "agent_id": agent_id
             }
