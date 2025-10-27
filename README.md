@@ -206,11 +206,15 @@ REACT_APP_BACKEND_URL=http://localhost:8001
 
 #### Phase 2: Voice & Workflows
 
-**Voice Sessions**
-- `POST /api/phase2/voice/session` - Create voice session
-- `GET /api/phase2/voice/sessions` - List active sessions
-- `GET /api/phase2/voice/session/{id}` - Get session status
-- `DELETE /api/phase2/voice/session/{id}` - End session
+**Qwen 3 Omni (End-to-End Voice)**
+- `POST /api/qwen/sessions` - Create voice session
+- `GET /api/qwen/sessions` - List active sessions
+- `GET /api/qwen/sessions/{id}` - Get session status
+- `DELETE /api/qwen/sessions/{id}` - End session
+- `POST /api/qwen/chat` - Text chat (streaming)
+- `WebSocket /api/qwen/ws/{id}` - Real-time voice
+- `GET /api/qwen/info` - Model information
+- `GET /api/qwen/health` - Health check
 
 **Workflows**
 - `POST /api/workflows/` - Create workflow
