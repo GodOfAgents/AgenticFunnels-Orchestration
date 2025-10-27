@@ -11,6 +11,10 @@ langchain==0.3.7
 langchain-openai==0.2.8
 langchain-community==0.3.5
 
+# Voice & Audio
+pipecat-ai[daily,deepgram]==0.0.45
+deepgram-sdk==3.8.3
+
 # Vector DB
 pymilvus==2.4.9
 
