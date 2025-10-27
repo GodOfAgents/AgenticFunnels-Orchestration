@@ -10,26 +10,61 @@ export default function Hero() {
       <BottomGradient />
       <div className="md:p-24">
         <div className="max-w-8xl mx-auto px-6 lg:px-8">
-          <div className="lg:mb-18 mx-auto max-w-3xl text-center">
-            <h1 className="text-foreground text-5xl font-bold sm:text-6xl">
-              Some <span className="italic">cool</span> words about{" "}
-              <span className="text-gradient-primary">your product</span>
+          <div className="lg:mb-18 mx-auto max-w-4xl text-center">
+            {/* Badge */}
+            <div className="mb-6 inline-flex items-center rounded-full border border-blue-200 bg-blue-50 px-4 py-2 text-sm font-medium text-blue-700 dark:border-blue-900 dark:bg-blue-950 dark:text-blue-300">
+              <span className="mr-2">🚀</span>
+              Powered by Qwen 3 Omni • Open Source • Apache 2.0
+            </div>
+
+            {/* Main Headline */}
+            <h1 className="text-foreground text-5xl font-bold sm:text-6xl lg:text-7xl">
+              Deploy{" "}
+              <span className="text-gradient-primary">AI Voice Agents</span>{" "}
+              in Minutes
             </h1>
-            <p className="text-muted-foreground mx-auto mt-6 max-w-2xl text-lg leading-8">
-              With some more exciting words about your product!
+
+            {/* Subheadline */}
+            <p className="text-muted-foreground mx-auto mt-6 max-w-3xl text-lg leading-8 sm:text-xl">
+              End-to-end voice AI with <strong>211ms latency</strong>. 
+              No pipeline complexity, 85% cheaper than alternatives, 
+              19 languages, 17 voice personas.
             </p>
+
+            {/* Key Stats */}
+            <div className="mx-auto mt-8 grid max-w-2xl grid-cols-3 gap-6 text-center">
+              <div>
+                <p className="text-3xl font-bold text-blue-600 dark:text-blue-400">211ms</p>
+                <p className="text-sm text-muted-foreground">Latency</p>
+              </div>
+              <div>
+                <p className="text-3xl font-bold text-blue-600 dark:text-blue-400">85%</p>
+                <p className="text-sm text-muted-foreground">Cost Savings</p>
+              </div>
+              <div>
+                <p className="text-3xl font-bold text-blue-600 dark:text-blue-400">19</p>
+                <p className="text-sm text-muted-foreground">Languages</p>
+              </div>
+            </div>
+
+            {/* CTA Buttons */}
             <div className="mt-10 flex items-center justify-center gap-x-6">
-              <Button size="lg" variant="outline" asChild>
-                <WaspRouterLink to={routes.PricingPageRoute.to}>
-                  Learn More
+              <Button size="lg" variant="default" asChild className="shadow-lg">
+                <WaspRouterLink to={routes.SignupRoute.to}>
+                  Start Free Trial <span aria-hidden="true">→</span>
                 </WaspRouterLink>
               </Button>
-              <Button size="lg" variant="default" asChild>
-                <WaspRouterLink to={routes.SignupRoute.to}>
-                  Get Started <span aria-hidden="true">→</span>
+              <Button size="lg" variant="outline" asChild>
+                <WaspRouterLink to={routes.PricingPageRoute.to}>
+                  View Pricing
                 </WaspRouterLink>
               </Button>
             </div>
+
+            {/* Trust Indicators */}
+            <p className="mt-6 text-sm text-muted-foreground">
+              ⭐ Open Source • 🔒 Self-Hosted • 🌍 Global Ready
+            </p>
           </div>
           <div className="mt-14 flow-root sm:mt-14">
             <div className="m-2 hidden justify-center rounded-xl md:flex lg:-m-4 lg:rounded-2xl lg:p-4">
