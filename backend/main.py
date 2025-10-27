@@ -9,9 +9,10 @@ from dotenv import load_dotenv
 load_dotenv(os.path.join(os.path.dirname(__file__), '.env'))
 
 from app.core.config import settings
-from app.api import agents, conversations, knowledge, integrations, admin, websocket, voice, workflows, phase2
+from app.api import agents, conversations, knowledge, integrations, admin, websocket, voice, workflows, phase2, qwen_omni
 from app.services.websocket_manager import ws_manager
 from app.services.anomaly_detector import anomaly_detector
+from app.services.qwen_omni_service import qwen_service
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -23,6 +24,10 @@ async def lifespan(app: FastAPI):
     # Start anomaly detector
     await anomaly_detector.start()
     print("✅ Anomaly detector started")
+    
+    # Load Qwen 3 Omni model (async in background to not block startup)
+    print("🤖 Loading Qwen 3 Omni model in background...")
+    asyncio.create_task(qwen_service.load_model())
     
     yield
     
