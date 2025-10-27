@@ -1,6 +1,31 @@
 version: '3.8'
 
 services:
+  # LiveKit Server - Open-source WebRTC infrastructure
+  livekit:
+    image: livekit/livekit-server:latest
+    command: --config /etc/livekit.yaml
+    ports:
+      - "7880:7880"    # HTTP/WebSocket
+      - "7881:7881"    # HTTPS/WebSocket (if SSL configured)
+      - "7882:7882"    # gRPC
+      - "50000-50200:50000-50200/udp"  # WebRTC UDP ports
+    volumes:
+      - ./livekit-config.yaml:/etc/livekit.yaml
+    environment:
+      - LIVEKIT_KEYS=devkey: devsecret
+    networks:
+      - afo-network
+    restart: unless-stopped
+
+  # Redis - Required by LiveKit for distributed deployments
+  redis-livekit:
+    image: redis:7-alpine
+    ports:
+      - "6380:6379"  # Different port to avoid conflict with main Redis
+    networks:
+      - afo-network
+    restart: unless-stopped
   # Milvus Vector Database
   etcd:
     container_name: milvus-etcd
