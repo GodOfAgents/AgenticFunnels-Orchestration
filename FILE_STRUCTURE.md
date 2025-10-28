@@ -56,9 +56,10 @@ backend/app/
 │   ├── integrations.py         # Third-party integrations
 │   ├── admin.py                # Admin panel endpoints
 │   ├── websocket.py            # WebSocket connections
-│   ├── voice.py                # Voice/TTS endpoints
-│   ├── workflows.py            # Workflow management (Phase 2)
-│   └── phase2.py               # Phase 2 specific endpoints
+│   ├── voice.py                # Voice/TTS endpoints (legacy)
+│   ├── workflows.py            # Workflow management
+│   ├── phase2.py               # Phase 2 specific endpoints (legacy)
+│   └── qwen_omni.py            # NEW - Qwen 3 Omni endpoints
 │
 ├── core/                        # Core Application Logic
 │   ├── __init__.py
@@ -84,9 +85,9 @@ backend/app/
     ├── websocket_manager.py    # WebSocket connection manager
     ├── anomaly_detector.py     # Anomaly detection system
     │
-    ├── # Phase 2 Services
-    ├── elevenlabs_service.py   # ElevenLabs TTS integration
-    ├── voice_session_service.py # Voice session management (Pipecat)
+    ├── # Voice & AI Services
+    ├── qwen_omni_service.py    # NEW - Qwen 3 Omni end-to-end voice AI
+    ├── voice_session_service.py # Voice session management (LiveKit + Pipecat)
     ├── workflow_service.py     # Workflow orchestration
     ├── calendar_service.py     # Calendar integration (Google, Calendly)
     └── webhook_service.py      # Webhook & CRM integration
