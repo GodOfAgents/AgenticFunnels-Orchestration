@@ -311,7 +311,13 @@ page AdminMessagesPage {
 }
 //#endregion
 
-//#region AFO Platform - Agents
+//#region AFO Platform - Core
+route DashboardRoute { path: "/dashboard", to: DashboardPage }
+page DashboardPage {
+  authRequired: true,
+  component: import DashboardPage from "@src/afo/dashboard/DashboardPage"
+}
+
 route AgentsRoute { path: "/agents", to: AgentsPage }
 page AgentsPage {
   authRequired: true,
