@@ -139,15 +139,30 @@ template/app/src/
 │   ├── App.tsx                 # Root React component
 │   └── components/             # Shared components
 │
+├── landing-page/               # Marketing Landing Page
+│   ├── LandingPage.tsx        # Main landing page
+│   ├── components/
+│   │   ├── Hero.tsx           # Updated hero section (Qwen 3 Omni focus)
+│   │   ├── HowItWorks.tsx     # NEW - 3-step process
+│   │   ├── ComparisonTable.tsx # NEW - AFO vs Traditional
+│   │   ├── FeaturesGrid.tsx
+│   │   ├── Testimonials.tsx
+│   │   └── FAQ.tsx
+│   └── contentSections.tsx    # Updated features content
+│
 ├── afo/                         # AFO Platform Features
+│   ├── dashboard/              # NEW - Main Dashboard (planned)
 │   ├── agents/                 # Agent Management
 │   │   ├── AgentsPage.tsx
 │   │   ├── AgentCreatePage.tsx
-│   │   └── AgentDetailPage.tsx
+│   │   └── AgentDetailPage.tsx # Updated with Phase 2 buttons
 │   │
 │   ├── conversations/          # Conversation Management
 │   │   ├── ConversationsPage.tsx
 │   │   └── ConversationDetailPage.tsx
+│   │
+│   ├── workflows/              # Workflow Management
+│   │   └── WorkflowBuilderPage.tsx # Updated to use real API
 │   │
 │   ├── knowledge/              # Knowledge Base
 │   │   └── KnowledgePage.tsx
@@ -161,42 +176,40 @@ template/app/src/
 │   │   ├── AdminAnomaliesPage.tsx
 │   │   └── AdminSystemPage.tsx
 │   │
-│   ├── # Phase 2 Components
-│   ├── voice/                  # Voice Features
-│   │   └── VoiceConfigPage.tsx
+│   ├── qwen/                   # NEW - Qwen 3 Omni Features (planned)
+│   │   ├── QwenChatInterface.tsx
+│   │   ├── QwenVoiceInterface.tsx
+│   │   └── QwenDashboard.tsx
 │   │
-│   ├── workflows/              # Workflow Management
-│   │   └── WorkflowBuilderPage.tsx
+│   ├── voice/                  # Voice Configuration
+│   │   └── VoiceConfigPage.tsx # NEW - Voice settings & personas
 │   │
 │   ├── components/             # Shared AFO Components
-│   │   └── VoiceInterface.tsx
+│   │   └── VoiceInterface.tsx  # Updated to use LiveKit
 │   │
 │   └── lib/                    # Utility Libraries
-│       ├── api-client.ts       # Backend API client
+│       ├── api-client.ts       # Updated with Qwen endpoints
 │       └── websocket-client.ts # WebSocket client
 │
-├── landing-page/               # Marketing Landing Page
-│   └── LandingPage.tsx
-│
-├── auth/                       # Authentication Pages
+├── auth/                        # Authentication Pages
 │   ├── LoginPage.tsx
 │   ├── SignupPage.tsx
 │   └── email-and-pass/
 │
-├── user/                       # User Management
+├── user/                        # User Management
 │   └── AccountPage.tsx
 │
-├── admin/                      # Admin Dashboard (OpenSaaS)
+├── admin/                       # Admin Dashboard (OpenSaaS)
 │   ├── dashboards/
 │   └── elements/
 │
-├── demo-ai-app/                # Demo AI Application
+├── demo-ai-app/                 # Demo AI Application
 │   └── DemoAppPage.tsx
 │
-├── payment/                    # Payment Integration
+├── payment/                     # Payment Integration
 │   └── PricingPage.tsx
 │
-└── file-upload/                # File Upload Features
+└── file-upload/                 # File Upload Features
     └── FileUploadPage.tsx
 ```
 
