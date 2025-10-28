@@ -407,6 +407,12 @@ page VoiceConfigPage {
   authRequired: true,
   component: import VoiceConfigPage from "@src/afo/voice/VoiceConfigPage"
 }
+
+route QwenChatRoute { path: "/qwen/chat", to: QwenChatPage }
+page QwenChatPage {
+  authRequired: true,
+  component: import QwenChatInterface from "@src/afo/qwen/QwenChatInterface"
+}
 //#endregion
 
 route NotFoundRoute { path: "*", to: NotFoundPage }
