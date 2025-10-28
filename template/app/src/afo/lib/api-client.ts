@@ -346,6 +346,43 @@ class APIClient {
   async getTTSModels(userId: string) {
     return this.request(`/api/voice/models?user_id=${userId}`);
   }
+
+  // Qwen 3 Omni APIs
+  async createQwenSession(data: any) {
+    return this.request('/api/qwen/sessions', {
+      method: 'POST',
+      body: JSON.stringify(data),
+    });
+  }
+
+  async listQwenSessions() {
+    return this.request('/api/qwen/sessions');
+  }
+
+  async getQwenSession(sessionId: string) {
+    return this.request(`/api/qwen/sessions/${sessionId}`);
+  }
+
+  async endQwenSession(sessionId: string) {
+    return this.request(`/api/qwen/sessions/${sessionId}`, {
+      method: 'DELETE',
+    });
+  }
+
+  async qwenChat(sessionId: string, text: string, stream: boolean = true) {
+    return this.request('/api/qwen/chat', {
+      method: 'POST',
+      body: JSON.stringify({ session_id: sessionId, text, stream }),
+    });
+  }
+
+  async getQwenInfo() {
+    return this.request('/api/qwen/info');
+  }
+
+  async getQwenHealth() {
+    return this.request('/api/qwen/health');
+  }
 }
 
 export const apiClient = new APIClient(BACKEND_URL);
