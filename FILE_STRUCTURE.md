@@ -12,11 +12,18 @@ afo-platform/
 ├── opensaas-sh/                  # Original OpenSaaS template
 ├── tools/                        # Development tools
 ├── .github/                      # GitHub workflows and templates
-├── docker-compose.yml            # Docker services configuration
+├── docker-compose.yml            # Docker services (LiveKit, Redis, Milvus)
+├── livekit-config.yaml           # LiveKit server configuration
 ├── README.md                     # Main project documentation
+├── COMPLETE_PLAN.md             # Complete implementation plan
 ├── SETUP_GUIDE.md               # Setup instructions
 ├── PROJECT_STATUS.md            # Current development status
 ├── DEPLOYMENT_GUIDE.md          # Deployment instructions
+├── FILE_STRUCTURE.md            # This file - architecture overview
+├── LIVEKIT_SETUP.md            # LiveKit setup guide
+├── QWEN_OMNI_GUIDE.md          # Qwen 3 Omni integration guide
+├── OPENSOURCE_ALTERNATIVES.md   # Open-source alternatives analysis
+├── CONTRIBUTING.md              # Contributor guidelines
 ├── test_result.md               # Testing results and logs
 └── package.json                 # Root package configuration
 ```
