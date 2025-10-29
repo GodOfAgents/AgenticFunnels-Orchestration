@@ -331,8 +331,34 @@ export function WorkflowCanvas() {
               placeholder="Add description..."
               className="text-sm text-gray-600 w-full mt-1 border-none focus:outline-none focus:ring-2 focus:ring-blue-500 px-2 py-1 rounded"
             />
+            
+            {/* Integration Status */}
+            {integrationStatus && (
+              <div className="flex gap-2 mt-2 flex-wrap">
+                {Object.entries(integrationStatus.integrations).map(([key, status]: [string, any]) => (
+                  <div
+                    key={key}
+                    className={`text-xs px-2 py-1 rounded-full ${
+                      status.configured
+                        ? 'bg-green-100 text-green-700'
+                        : 'bg-gray-100 text-gray-500'
+                    }`}
+                    title={status.configured ? `${status.provider} configured` : `${key} not configured`}
+                  >
+                    {status.configured ? '✓' : '○'} {key.charAt(0).toUpperCase() + key.slice(1)}
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
+          
           <div className="flex gap-2">
+            <button
+              onClick={handleValidate}
+              className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition"
+            >
+              Validate
+            </button>
             <button
               onClick={() => navigate(`/agents/${agentId}`)}
               className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition"
@@ -348,6 +374,32 @@ export function WorkflowCanvas() {
             </button>
           </div>
         </div>
+        
+        {/* Validation Results */}
+        {showValidation && (validationErrors.length > 0 || validationWarnings.length > 0) && (
+          <div className="mt-4 space-y-2">
+            {validationErrors.length > 0 && (
+              <div className="bg-red-50 border border-red-200 rounded-lg p-3">
+                <h4 className="text-sm font-semibold text-red-800 mb-1">Errors ({validationErrors.length})</h4>
+                <ul className="text-sm text-red-700 space-y-1">
+                  {validationErrors.map((error, idx) => (
+                    <li key={idx}>• {error.message}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+            {validationWarnings.length > 0 && (
+              <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-3">
+                <h4 className="text-sm font-semibold text-yellow-800 mb-1">Warnings ({validationWarnings.length})</h4>
+                <ul className="text-sm text-yellow-700 space-y-1">
+                  {validationWarnings.map((warning, idx) => (
+                    <li key={idx}>• {warning.message}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
+        )}
       </div>
 
       {/* Main Content */}
