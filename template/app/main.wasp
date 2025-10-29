@@ -330,6 +330,12 @@ page AgentCreatePage {
   component: import AgentCreatePage from "@src/afo/agents/AgentCreatePage"
 }
 
+route AgentCreateEnhancedRoute { path: "/agent/create-new", to: AgentCreatePageEnhanced }
+page AgentCreatePageEnhanced {
+  authRequired: true,
+  component: import AgentCreatePageEnhanced from "@src/afo/agents/AgentCreatePageEnhanced"
+}
+
 route AgentDetailRoute { path: "/agent/:id", to: AgentDetailPage }
 page AgentDetailPage {
   authRequired: true,
