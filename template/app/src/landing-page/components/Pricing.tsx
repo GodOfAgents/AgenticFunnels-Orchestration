@@ -161,7 +161,7 @@ export default function Pricing() {
 
         <div className="mt-16 text-center">
           <p className="text-base text-gray-600 dark:text-gray-300">
-            All plans include: Self-hosted option • Open source • LiveKit + Qwen 3 Omni • No vendor lock-in
+            All plans include: Self-hosted option • Open source • Advanced AI • No vendor lock-in
           </p>
         </div>
       </div>
