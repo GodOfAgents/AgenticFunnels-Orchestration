@@ -403,3 +403,162 @@ async def update_workflow(
     })
     
     return workflow
+
+@router.get("/agent/{agent_id}/integration-status")
+async def get_agent_integration_status(
+    agent_id: str,
+    user_id: str,
+    db: AsyncSession = Depends(get_db)
+):
+    """
+    Get integration status for an agent's user
+    Returns which integrations are configured and available for workflow nodes
+    """
+    from app.services.integration_service import IntegrationService
+    
+    service = IntegrationService(db)
+    integrations = await service.list_user_integrations(user_id)
+    
+    # Build integration status map
+    status = {
+        "calendar": {
+            "configured": False,
+            "provider": None,
+            "required_for_nodes": ["schedule_meeting"]
+        },
+        "crm": {
+            "configured": False,
+            "provider": None,
+            "required_for_nodes": ["crm_update"]
+        },
+        "twilio": {
+            "configured": False,
+            "provider": None,
+            "required_for_nodes": []  # Optional for SMS nodes if we add them
+        },
+        "email": {
+            "configured": False,
+            "provider": None,
+            "required_for_nodes": ["email"]
+        }
+    }
+    
+    # Update status based on configured integrations
+    for integration in integrations:
+        if integration.get("isActive"):
+            integration_type = integration.get("type")
+            if integration_type in status:
+                status[integration_type]["configured"] = True
+                status[integration_type]["provider"] = integration.get("provider")
+    
+    return {
+        "agent_id": agent_id,
+        "integrations": status,
+        "total_configured": sum(1 for s in status.values() if s["configured"])
+    }
+
+@router.post("/validate")
+async def validate_workflow(
+    workflow_data: WorkflowCreate,
+    user_id: str,
+    db: AsyncSession = Depends(get_db)
+):
+    """
+    Validate workflow before saving
+    Checks if required integrations are configured
+    """
+    from app.services.integration_service import IntegrationService
+    
+    service = IntegrationService(db)
+    integrations = await service.list_user_integrations(user_id)
+    
+    # Get active integration types
+    active_integrations = set()
+    for integration in integrations:
+        if integration.get("isActive"):
+            active_integrations.add(integration.get("type"))
+    
+    # Check each node for required integrations
+    errors = []
+    warnings = []
+    
+    for node in workflow_data.nodes:
+        node_type = node.type
+        
+        # Check integration requirements
+        if node_type == "schedule_meeting":
+            if "calendar" not in active_integrations:
+                errors.append({
+                    "node_id": node.id,
+                    "node_type": node_type,
+                    "message": "Calendar integration required but not configured",
+                    "required_integration": "calendar"
+                })
+        
+        elif node_type == "crm_update":
+            if "crm" not in active_integrations:
+                errors.append({
+                    "node_id": node.id,
+                    "node_type": node_type,
+                    "message": "CRM integration required but not configured",
+                    "required_integration": "crm"
+                })
+        
+        elif node_type == "email":
+            if "email" not in active_integrations:
+                warnings.append({
+                    "node_id": node.id,
+                    "node_type": node_type,
+                    "message": "Email integration not configured - emails may not be sent",
+                    "required_integration": "email"
+                })
+        
+        # Check for webhook/API call nodes with empty URLs
+        elif node_type in ["webhook", "api_call"]:
+            url = node.config.get("url")
+            if not url:
+                errors.append({
+                    "node_id": node.id,
+                    "node_type": node_type,
+                    "message": f"{node_type} node requires a URL to be configured"
+                })
+    
+    # Check for orphaned nodes (no incoming connections)
+    node_ids = {node.id for node in workflow_data.nodes}
+    nodes_with_incoming = {node.next for node in workflow_data.nodes if node.next}
+    
+    # First node (trigger) should not have incoming connections
+    trigger_nodes = [node for node in workflow_data.nodes if node.type == "trigger"]
+    if not trigger_nodes:
+        warnings.append({
+            "message": "No trigger node found - workflow may not execute automatically"
+        })
+    
+    # Check for unreachable nodes
+    if trigger_nodes:
+        trigger_id = trigger_nodes[0].id
+        reachable = set([trigger_id])
+        queue = [trigger_id]
+        
+        while queue:
+            current = queue.pop(0)
+            for node in workflow_data.nodes:
+                if node.id == current and node.next and node.next not in reachable:
+                    reachable.add(node.next)
+                    queue.append(node.next)
+        
+        unreachable = node_ids - reachable
+        if unreachable:
+            for node_id in unreachable:
+                warnings.append({
+                    "node_id": node_id,
+                    "message": "Node is not reachable from trigger - may never execute"
+                })
+    
+    return {
+        "valid": len(errors) == 0,
+        "errors": errors,
+        "warnings": warnings,
+        "can_save": len(errors) == 0,
+        "can_execute": len(errors) == 0 and len(warnings) == 0
+    }
