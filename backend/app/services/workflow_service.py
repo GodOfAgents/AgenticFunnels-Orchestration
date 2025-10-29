@@ -276,8 +276,13 @@ class WorkflowService:
                 # Replace variables in lead data with context values
                 lead_data = self._replace_variables(lead_data, context)
                 
-                result = await webhook_service.send_crm_lead(crm_url, lead_data)
-                return {"crm_updated": True, "result": result}
+                async with httpx.AsyncClient() as client:
+                    response = await client.post(crm_url, json=lead_data, timeout=10.0)
+                    return {
+                        "crm_updated": True,
+                        "status_code": response.status_code,
+                        "response": response.json() if response.status_code == 200 else None
+                    }
             except Exception as e:
                 return {"error": str(e)}
         
