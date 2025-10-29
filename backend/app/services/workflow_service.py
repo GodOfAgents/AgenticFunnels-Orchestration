@@ -255,8 +255,13 @@ class WorkflowService:
                 # Replace variables in payload with context values
                 payload = self._replace_variables(payload, context)
                 
-                result = await webhook_service.send_webhook(url, payload)
-                return {"webhook_sent": True, "result": result}
+                async with httpx.AsyncClient() as client:
+                    response = await client.post(url, json=payload, timeout=10.0)
+                    return {
+                        "webhook_sent": True,
+                        "status_code": response.status_code,
+                        "response": response.json() if response.status_code == 200 else None
+                    }
             except Exception as e:
                 return {"error": str(e)}
         
