@@ -1,5 +1,5 @@
 // TODO: Add messages page
-import type { AuthUser } from "wasp/auth";
+import type { AuthUser } from '@src/lib/auth';
 import DefaultLayout from "../../layout/DefaultLayout";
 
 function AdminMessages({ user }: { user: AuthUser }) {

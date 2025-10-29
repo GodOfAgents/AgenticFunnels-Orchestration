@@ -1,6 +1,6 @@
 import { FileText, Mail, Upload, User } from "lucide-react";
 import { FormEvent } from "react";
-import { type AuthUser } from "wasp/auth";
+import { type AuthUser } from '@src/lib/auth';
 import { Button } from "../../../components/ui/button";
 import {
   Card,

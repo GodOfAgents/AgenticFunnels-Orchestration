@@ -1,5 +1,5 @@
 import { Heart, Plus, Trash2 } from "lucide-react";
-import { type AuthUser } from "wasp/auth";
+import { type AuthUser } from '@src/lib/auth';
 import { Button } from "../../../components/ui/button";
 import Breadcrumb from "../../layout/Breadcrumb";
 import DefaultLayout from "../../layout/DefaultLayout";

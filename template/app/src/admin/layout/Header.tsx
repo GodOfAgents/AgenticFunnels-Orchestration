@@ -1,4 +1,4 @@
-import { type AuthUser } from "wasp/auth";
+import { type AuthUser } from '@src/lib/auth';
 import DarkModeSwitcher from "../../client/components/DarkModeSwitcher";
 import { cn } from "../../lib/utils";
 import { UserDropdown } from "../../user/UserDropdown";
