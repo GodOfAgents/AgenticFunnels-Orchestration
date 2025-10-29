@@ -12,7 +12,7 @@ import AgentCreatePageEnhanced from './afo/agents/AgentCreatePageEnhanced';
 import AgentDetailPage from './afo/agents/AgentDetailPage';
 import AgentDetailPageEnhanced from './afo/agents/AgentDetailPageEnhanced';
 import WorkflowBuilderPage from './afo/workflows/WorkflowBuilderPage';
-import WorkflowCanvas from './afo/workflows/WorkflowCanvas';
+import { WorkflowCanvas } from './afo/workflows/WorkflowCanvas';
 import ConversationsPage from './afo/conversations/ConversationsPage';
 import ConversationDetailPage from './afo/conversations/ConversationDetailPage';
 import IntegrationsPage from './afo/integrations/IntegrationsPage';
