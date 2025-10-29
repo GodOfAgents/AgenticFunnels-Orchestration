@@ -238,6 +238,21 @@ class APIClient {
     return this.request(`/api/workflows/execution/${executionId}`);
   }
 
+  async getWorkflowNodeTypes() {
+    return this.request('/api/workflows/node-types');
+  }
+
+  async getWorkflowTemplates() {
+    return this.request('/api/workflows/templates');
+  }
+
+  async updateWorkflow(workflowId: string, data: any) {
+    return this.request(`/api/workflows/${workflowId}`, {
+      method: 'PUT',
+      body: JSON.stringify(data),
+    });
+  }
+
   // Phase 2: Voice Session APIs
   async createVoiceSession(data: any) {
     return this.request('/api/phase2/voice/session', {
