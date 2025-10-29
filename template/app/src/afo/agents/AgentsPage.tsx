@@ -64,7 +64,7 @@ export default function AgentsPage({ user }: any) {
           <p className="text-gray-600 mt-2">Manage your AI agents for lead qualification and customer engagement</p>
         </div>
         <button
-          onClick={() => history.push('/agent/create')}
+          onClick={() => navigate('/agent/create')}
           className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
           data-testid="create-agent-btn"
         >
@@ -81,7 +81,7 @@ export default function AgentsPage({ user }: any) {
           <h3 className="mt-4 text-lg font-medium text-gray-900">No agents yet</h3>
           <p className="mt-2 text-gray-500">Get started by creating your first AI agent</p>
           <button
-            onClick={() => history.push('/agent/create')}
+            onClick={() => navigate('/agent/create')}
             className="mt-6 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
           >
             Create Agent
@@ -93,7 +93,7 @@ export default function AgentsPage({ user }: any) {
             <div
               key={agent.id}
               className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition cursor-pointer"
-              onClick={() => history.push(`/agent/${agent.id}`)}
+              onClick={() => navigate(`/agent/${agent.id}`)}
               data-testid={`agent-card-${agent.id}`}
             >
               <div className="flex justify-between items-start mb-4">

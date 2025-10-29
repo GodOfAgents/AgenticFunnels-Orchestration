@@ -92,7 +92,7 @@ export default function AgentCreatePage() {
 
       const response = await apiClient.createAgent(agentData);
       alert('Agent created successfully! 🎉');
-      history.push(`/agent/${response.id}`);
+      navigate(`/agent/${response.id}`);
     } catch (error: any) {
       alert(`Failed to create agent: ${error.message}`);
     } finally {

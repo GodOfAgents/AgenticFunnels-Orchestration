@@ -36,7 +36,7 @@ export default function WorkflowBuilderPage({ user }: any) {
           <p className="text-gray-600 mt-2">Automate your agent's actions and responses</p>
         </div>
         <button
-          onClick={() => history.push(`/workflows/${agentId}/builder`)}
+          onClick={() => navigate(`/workflows/${agentId}/builder`)}
           className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium"
         >
           + Create Visual Workflow

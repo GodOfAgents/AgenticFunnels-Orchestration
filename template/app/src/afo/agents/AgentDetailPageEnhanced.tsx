@@ -69,7 +69,7 @@ export default function AgentDetailPageEnhanced() {
           </svg>
           <h2 className="mt-4 text-2xl font-bold text-gray-900">Agent not found</h2>
           <button
-            onClick={() => history.push('/agents')}
+            onClick={() => navigate('/agents')}
             className="mt-4 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
           >
             Back to Agents
@@ -93,7 +93,7 @@ export default function AgentDetailPageEnhanced() {
       <div className="bg-white border-b shadow-sm">
         <div className="container mx-auto px-4 py-6">
           <button
-            onClick={() => history.push('/agents')}
+            onClick={() => navigate('/agents')}
             className="text-blue-600 hover:text-blue-700 mb-4 inline-flex items-center"
           >
             <svg className="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -142,13 +142,13 @@ export default function AgentDetailPageEnhanced() {
                 Test Agent
               </button>
               <button
-                onClick={() => history.push(`/workflows/${id}/builder`)}
+                onClick={() => navigate(`/workflows/${id}/builder`)}
                 className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 shadow-md transition"
               >
                 Workflows
               </button>
               <button
-                onClick={() => history.push(`/conversations?agent_id=${id}`)}
+                onClick={() => navigate(`/conversations?agent_id=${id}`)}
                 className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 shadow-md transition"
               >
                 Conversations
@@ -311,7 +311,7 @@ export default function AgentDetailPageEnhanced() {
                   <div className="flex items-center justify-between mb-4">
                     <h3 className="text-lg font-semibold text-gray-900">System Instructions</h3>
                     <button
-                      onClick={() => history.push(`/agent/${id}/edit`)}
+                      onClick={() => navigate(`/agent/${id}/edit`)}
                       className="px-3 py-1 text-sm bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200"
                     >
                       Edit
@@ -357,7 +357,7 @@ export default function AgentDetailPageEnhanced() {
                     <p className="text-sm text-gray-600 mt-1">Manage external service connections</p>
                   </div>
                   <button
-                    onClick={() => history.push(`/agent/${id}/edit#integrations`)}
+                    onClick={() => navigate(`/agent/${id}/edit#integrations`)}
                     className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
                   >
                     Add Integration
@@ -442,7 +442,7 @@ export default function AgentDetailPageEnhanced() {
                     Upload documents to enhance your agent's knowledge. Supports PDFs, Word docs, and text files.
                   </p>
                   <button
-                    onClick={() => history.push(`/knowledge?agent_id=${id}`)}
+                    onClick={() => navigate(`/knowledge?agent_id=${id}`)}
                     className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 shadow-md"
                   >
                     Manage Knowledge Base
@@ -479,7 +479,7 @@ export default function AgentDetailPageEnhanced() {
                         <div className="text-sm text-gray-600">Update name, role, persona, and system prompt</div>
                       </div>
                       <button
-                        onClick={() => history.push(`/agent/${id}/edit`)}
+                        onClick={() => navigate(`/agent/${id}/edit`)}
                         className="px-6 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 font-medium"
                       >
                         Edit
@@ -514,7 +514,7 @@ export default function AgentDetailPageEnhanced() {
                           try {
                             await apiClient.deleteAgent(id);
                             alert('Agent deleted successfully');
-                            history.push('/agents');
+                            navigate('/agents');
                           } catch (error) {
                             alert('Failed to delete agent');
                           }

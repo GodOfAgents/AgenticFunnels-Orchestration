@@ -103,7 +103,7 @@ export default function AgentCreatePageEnhanced({ user }: any) {
       }
 
       alert('Agent created successfully!');
-      history.push(`/agent/${agentId}`);
+      navigate(`/agent/${agentId}`);
     } catch (error: any) {
       alert(`Failed to create agent: ${error.message}`);
     } finally {
@@ -939,7 +939,7 @@ Always be helpful, courteous, and focused on the customer's needs.`;
             <button
               onClick={() => {
                 if (step === 1) {
-                  history.push('/agents');
+                  navigate('/agents');
                 } else {
                   setStep(step - 1);
                   setErrors({});

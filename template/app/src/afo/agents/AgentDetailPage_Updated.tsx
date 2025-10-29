@@ -63,7 +63,7 @@ export default function AgentDetailPage() {
 
       setQwenSession(session);
       alert('Test session created! Opening chat...');
-      history.push('/qwen/chat');
+      navigate('/qwen/chat');
     } catch (error: any) {
       alert(`Failed to test agent: ${error.message}`);
     } finally {

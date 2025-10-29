@@ -34,7 +34,7 @@ export default function AgentCreatePage({ user }: any) {
 
       const response = await apiClient.createAgent(agentData);
       alert('Agent created successfully!');
-      history.push(`/agent/${response.id}`);
+      navigate(`/agent/${response.id}`);
     } catch (error: any) {
       alert(`Failed to create agent: ${error.message}`);
     } finally {
@@ -269,7 +269,7 @@ Always be helpful, courteous, and focused on the customer's needs.`;
           <button
             onClick={() => {
               if (step === 1) {
-                history.push('/agents');
+                navigate('/agents');
               } else {
                 setStep(step - 1);
               }

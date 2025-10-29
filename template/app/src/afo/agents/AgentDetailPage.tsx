@@ -39,7 +39,7 @@ export default function AgentDetailPage() {
         <div className="text-center">
           <h2 className="text-2xl font-bold text-gray-900">Agent not found</h2>
           <button
-            onClick={() => history.push('/agents')}
+            onClick={() => navigate('/agents')}
             className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg"
           >
             Back to Agents
@@ -54,7 +54,7 @@ export default function AgentDetailPage() {
       {/* Header */}
       <div className="mb-6">
         <button
-          onClick={() => history.push('/agents')}
+          onClick={() => navigate('/agents')}
           className="text-blue-600 hover:text-blue-700 mb-4"
         >
           ← Back to Agents
@@ -75,19 +75,19 @@ export default function AgentDetailPage() {
               {agent.isActive ? 'Active' : 'Inactive'}
             </span>
             <button
-              onClick={() => history.push(`/workflows/${agent.id}`)}
+              onClick={() => navigate(`/workflows/${agent.id}`)}
               className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700"
             >
               Workflows
             </button>
             <button
-              onClick={() => history.push(`/voice/config/${agent.id}`)}
+              onClick={() => navigate(`/voice/config/${agent.id}`)}
               className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700"
             >
               Voice Setup
             </button>
             <button
-              onClick={() => history.push(`/conversations?agent_id=${agent.id}`)}
+              onClick={() => navigate(`/conversations?agent_id=${agent.id}`)}
               className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
             >
               Conversations
@@ -180,7 +180,7 @@ export default function AgentDetailPage() {
               <h3 className="mt-4 text-lg font-medium text-gray-900">Knowledge Base</h3>
               <p className="mt-2 text-gray-500">Upload documents to enhance your agent's knowledge</p>
               <button
-                onClick={() => history.push(`/knowledge?agent_id=${agent.id}`)}
+                onClick={() => navigate(`/knowledge?agent_id=${agent.id}`)}
                 className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
               >
                 Manage Knowledge Base
@@ -231,7 +231,7 @@ export default function AgentDetailPage() {
                       onClick={async () => {
                         if (confirm('Are you sure? This action cannot be undone.')) {
                           await apiClient.deleteAgent(agent.id);
-                          history.push('/agents');
+                          navigate('/agents');
                         }
                       }}
                       className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700"
