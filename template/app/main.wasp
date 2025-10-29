@@ -399,6 +399,12 @@ page WorkflowBuilderPage {
   authRequired: true,
   component: import WorkflowBuilderPage from "@src/afo/workflows/WorkflowBuilderPage"
 }
+
+route WorkflowCanvasRoute { path: "/workflows/:agentId/builder/:workflowId?", to: WorkflowCanvas }
+page WorkflowCanvas {
+  authRequired: true,
+  component: import { WorkflowCanvas } from "@src/afo/workflows/WorkflowCanvas"
+}
 //#endregion
 
 //#region AFO Platform - Voice
