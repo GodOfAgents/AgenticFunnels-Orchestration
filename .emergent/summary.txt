@@ -1,88 +1,66 @@
 <analysis>
-The AI engineer successfully initiated the Agentic Funnel Orchestration (AFO) platform build, focusing on a multi-tenant SaaS model. The initial phase established the backend with FastAPI, MongoDB, Milvus, and Redis, creating a robust service structure including agents, conversations, knowledge, integrations, and admin modules. Prisma schema was updated for data models. Frontend Wasp routes and placeholder React components were generated. Critical fixes addressed configuration loading issues in FastAPI, leading to successful backend service startup and endpoint testing. ElevenLabs TTS integration was partially added. Phase 2 commenced with Deepgram and Pipecat integration, establishing voice session and workflow services, and updating agent schemas for API keys. The work currently focuses on updating frontend components for Phase 2 features. Key challenges included Docker unavailability, Wasp CLI not being installed in the environment, and  configuration issues.
+The AI engineer successfully built out significant portions of the Agentic Funnel Orchestration (AFO) platform. Initially, Phase 1 focused on backend services (FastAPI, MongoDB, Milvus, Redis) and Wasp/React frontend placeholders, addressing configuration issues and adding ElevenLabs. Phase 2 commenced with Deepgram/Pipecat integration for voice and workflows. Key developments included a major migration from Daily.co to LiveKit for WebRTC at user request, and a full shift from Deepgram to Qwen 3 Omni for multimodal AI, impacting backend services and API endpoints. The frontend saw updates to landing pages, authentication, dashboard, and agent management, creating new components for Qwen and LiveKit configuration. The immediate focus before this summary was frontend development, specifically updating agent detail pages and preparing for a visual workflow builder.
 </analysis>
-
 <product_requirements>
-The Agentic Funnel Orchestration (AFO) platform is a multi-tenant SaaS for B2B companies, sales teams, and service-based businesses to deploy AI agents for customer engagement via voice and text, automating lead qualification, scheduling, and support.
-
-**Key Features:** Multimodal communication (text/voice via Pipecat), Agent Persona Configuration, RAG-powered Knowledge Base integration (Milvus, RAG-Anything), Workflow Execution (external APIs), and various Deployment Options (embed code, webhook, API).
-
-**Onboarding/Configuration:** User sign-up (Open-SaaS), multi-step agent creation (Name, Role, Persona), Knowledge Base allocation (document upload), API Connection Manager (secure vault for user-provided API keys like Twilio, CRM, Calendar, Deepgram, ElevenLabs), UI template selection, and deployment code generation.
-
-**Dashboard:** Live Agent Status, Analytics, Monitoring Console, Conversation/Call history, Knowledge Base management, and Natural Language Workflow Customization (no-code).
-
-**Integrations (MLP):** Twilio (voice/SMS), WebRTC, Google Calendar, Calendly, and 3 popular CRMs.
-
-**User Journey (Lead Qualification & Scheduling):** Agent loads via embed code, recognizes intent (information/scheduling), provides RAG-powered info or collects lead data to schedule via Calendar/CRM, followed by automated reminders (Twilio/Email).
-
-**Admin Panel:** Tiered admin access, real-time monitoring (WebSocket), anomaly detection, using existing Wasp UI.
+The AFO platform is a multi-tenant SaaS designed for B2B sales/service teams, enabling AI agents for customer engagement via voice/text, automating lead qualification, scheduling, and support. Key features include multimodal communication (text/voice, now via LiveKit and Qwen 3 Omni), Agent Persona Configuration (name, persona, instructions, etc.), RAG-powered Knowledge Base (Milvus), Workflow Execution (external APIs), and various Deployment Options. Users can configure agents, manage knowledge bases, connect third-party APIs (Twilio, CRM, Calendar), and generate deployment code. The platform features a dashboard for live status, analytics, conversation history, and no-code workflow customization. An admin panel provides tiered access, real-time monitoring (WebSockets), and anomaly detection. The core user journey involves agents handling lead qualification and scheduling through RAG and calendar integrations.
 </product_requirements>
-
 <key_technical_concepts>
-- **FastAPI**: Python web framework for backend API.
-- **React/Wasp**: Frontend framework for UI development.
-- **MongoDB**: Primary database for application data.
-- **Milvus**: Vector database for RAG (Knowledge Base).
+- **FastAPI**: Python web framework for backend.
+- **React/Wasp**: Frontend UI framework.
+- **MongoDB**: Primary NoSQL database.
+- **Milvus**: Vector database for RAG.
 - **Redis**: Caching and messaging.
-- **Prisma**: ORM for database interactions.
-- **Pipecat-flows**: Workflow orchestration and multimodal communication.
-- **Deepgram**: Speech-to-Text (STT) for voice agents.
-- **ElevenLabs**: Text-to-Speech (TTS) for voice agents.
-- **Pydantic**: Data validation and settings management.
-- **Supervisor**: Process manager for running backend/frontend services.
+- **LiveKit**: Open-source WebRTC (replaces Daily.co).
+- **Qwen 3 Omni**: Multimodal AI (replaces Deepgram/ElevenLabs for core STT/TTS).
+- **Pipecat-flows**: Workflow orchestration and multimodal pipelines.
+- **Pydantic**: Data validation and settings.
 </key_technical_concepts>
-
 <code_architecture>
 
 
-**Changes Summary:**
--   : Modified to include new models for AFO (e.g., Agent, Conversation, Message, KnowledgeBase, Integration, Workflow, Anomaly).
--   : New directory created for the FastAPI backend.
-    -   : Populated with Python dependencies, including , , .
-    -   : Created to store backend environment variables, including .
-    -   : Modified repeatedly to fix  loading issues, eventually switching to a dataclass and manual  loading.
-    -   : Updated to register new API routers (, , , , , , , ).
-    -   New directories for , ,  with numerous files: This creates the modular structure for different AFO features.
-    -   : Generated to document the backend endpoints.
--   : Created for Milvus and Redis services (though Docker is not available in the environment).
--   : Modified to add new frontend routes and pages for AFO features (e.g., , , , ).
--   : New directory with sub-directories for React components (e.g., , , , , , , , ).
-    -   , : Created for frontend-backend communication.
-    -   Various  files (e.g., , , ): These are placeholder React components for the AFO UI.
--   , , : New documentation files created.
+-   ****: Modified repeatedly to fix  loading issues, switched to a dataclass and manual  loading for robust configuration.
+-   ****: Updated to include Deepgram, ElevenLabs, and potentially LiveKit/Qwen API keys, supporting the multi-tenant bring your own API model.
+-   ****: Initially created for Pipecat/ElevenLabs/Deepgram. Significantly modified to integrate  instead of  and adapted for Qwen 3 Omni, managing voice sessions and real-time interaction pipelines.
+-   ****: Newly created to encapsulate the business logic for Qwen 3 Omni integration, handling multimodal input/output and real-time streaming capabilities.
+-   ****: Newly created API router to expose endpoints for Qwen 3 Omni interaction from the frontend, enabling chat and other multimodal functions.
+-   ****: Updated to register new API routers (, , ), ensuring all backend features are accessible.
+-   ****: Created as a wrapper to correctly launch the FastAPI application, addressing initial  during backend startup.
+-   ****: Modified to include the LiveKit server definition, crucial for self-hosting the WebRTC infrastructure.
+-   ****: Newly created configuration file for the LiveKit server.
+-   ****: Modified extensively to add new frontend routes for the Dashboard, Qwen chat interface, and other AFO-specific pages.
+-   ****: Modified to add methods for interacting with the new Qwen 3 Omni backend endpoints, facilitating real-time multimodal sessions.
+-   ****: Newly created frontend component for configuring voice settings, likely for ElevenLabs or LiveKit/Qwen parameters.
+-   ****: Newly created core frontend component to serve as the central hub for users, displaying agent status, analytics, and other AFO features.
+-   ****: Newly created frontend component to provide a real-time chat interface leveraging Qwen 3 Omni's capabilities.
+-   ****: Newly created component, likely an updated version of , incorporating Qwen 3 Omni-specific configuration options during agent creation.
+-   ****: Newly created component, an updated version of , to display and manage Qwen 3 Omni-specific settings for an agent.
+-   ****: Several files within this directory (, , , , ) were modified or created to customize the landing page for the AFO platform, including new sections and content.
+-   ****: Updated multiple times to reflect the project's evolution, including LiveKit migration, Qwen 3 Omni integration, and overall platform features.
+-   ****: Newly created to document the codebase structure.
+-   **, , **: Created to provide examples of required environment variables.
+-   ****: Newly created documentation for setting up LiveKit.
+-   ****: Newly created documentation for Qwen 3 Omni integration.
 </code_architecture>
-
 <pending_tasks>
-- End-to-end testing of Phase 1 (backend and frontend integration).
-- Full implementation of Deepgram and Pipecat for real-time voice (STT/TTS).
-- Integrating user-provided API keys for Twilio, Calendar, CRM.
-- Building out the actual UI components for Phase 2 workflows and voice interfaces.
+- Full implementation and integration of the Visual Workflow Builder.
+- Complete frontend UI development for all AFO features.
+- Thorough end-to-end testing of LiveKit and Qwen 3 Omni integrations.
+- Integrating user-provided API keys for Twilio, Calendar, and CRM.
 </pending_tasks>
-
 <current_work>
-The AI engineer is currently engaged in implementing **Phase 2: Voice + Workflows** for the AFO platform. This involves integrating Deepgram for Speech-to-Text and  for workflow orchestration.
+The AI engineer has recently completed a significant refactoring and feature addition focused on replacing third-party voice and STT/TTS services with open-source alternatives, followed by frontend UI development.
 
-On the backend (), the following has been completed:
--   Installation of  (v4.7.0) and  (v0.0.91).
--   Creation of new service files:
-    -   
-    -   
-    -   
-    -   
--   Creation of new API endpoint files:
-    -   
-    -   
--   Updating  to include the new  and  API routers.
--   Updating the agent schema () to include fields for Deepgram and ElevenLabs API keys, aligning with the user's multi-tenant bring your own API requirement for voice agents.
+Specifically:
+1.  **LiveKit Migration**: Successfully migrated from Daily.co to LiveKit for WebRTC functionality. This involved updating , creating , updating  with LiveKit dependencies, and modifying  to use . The backend restart after this change was successful.
+2.  **Qwen 3 Omni Integration**: Integrated Qwen 3 Omni for multimodal AI. This included creating  and  for backend services and API endpoints.  was updated, and  was modified to include Qwen dependencies. A PyTorch installation issue was resolved, and backend Qwen endpoints were verified ( returned ).
+3.  **Frontend Development (Sequential Plan)**:
+    *   **Landing Page**: Updated , , and . New components  and  were created.
+    *   **Authentication & Dashboard**: The existing  was noted. A new  was created. The frontend  was updated with Qwen session methods, and  was updated with the dashboard route.
+    *   **Agent Management**:  was reviewed, and a new  was created for Qwen 3 Omni configuration. A  component and its corresponding route were added.
+    *   **Agent Detail Page**:  was reviewed, and  was created.
 
-The backend service was successfully restarted, and initial health checks and existing API endpoints were verified, indicating the new Phase 2 backend structure is available, despite some Pipecat deprecation warnings.
-
-On the frontend (), the work immediately preceding this summary was:
--   Updating existing frontend components (, ) to prepare for Phase 2 features. The specific contents of these updates were not fully detailed in the trajectory, but indicated structural or styling adjustments for the upcoming features.
--   The next explicit step mentioned was Now let me create new frontend components for workflows and voice interface, which directly follows the component updates.
+The system is in a state where the backend services for LiveKit and Qwen 3 Omni are integrated and partially tested, and significant progress has been made on the core frontend components following a sequential development plan. The next explicit step is to build the Visual Workflow Builder.
 </current_work>
-
 <optional_next_step>
-Continue creating new frontend components for the voice interface and workflow management in  and .
+Build the Visual Workflow Builder component, following the established sequential development plan.
 </optional_next_step>
-
