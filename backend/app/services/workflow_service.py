@@ -2,6 +2,9 @@ from typing import Dict, List, Optional, Any
 import json
 import uuid
 from datetime import datetime
+import httpx
+from app.services.webhook_service import webhook_service
+from app.services.knowledge_service import knowledge_service
 
 class WorkflowService:
     """
