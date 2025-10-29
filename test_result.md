@@ -59,9 +59,13 @@ Build Phase 2 features for the Agentic Funnel Orchestration (AFO) platform, incl
 - ✅ Backend service running successfully on port 8001
 - ✅ Health check endpoint responding correctly
 - ✅ Workflow endpoints enhanced with node-types and templates
-- ✅ Visual Workflow Builder frontend component created
+- ✅ Integration status endpoint working (GET /api/workflows/agent/{id}/integration-status)
+- ✅ Workflow validation endpoint working (POST /api/workflows/validate)
+- ✅ Visual Workflow Builder frontend component created with integration awareness
+- ✅ Node palette shows integration requirements and disables nodes without integrations
+- ✅ Validation UI displays errors and warnings before saving
 - ⏳ Frontend not yet started (requires Wasp setup)
-- ⏳ End-to-end workflow builder testing needed
+- ⏳ End-to-end workflow builder testing with real integrations needed
 
 ## Testing Required
 1. Backend endpoint testing for Phase 2 features
