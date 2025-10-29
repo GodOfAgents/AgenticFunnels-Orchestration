@@ -50,14 +50,14 @@ export default function Hero() {
             {/* CTA Buttons */}
             <div className="mt-10 flex items-center justify-center gap-x-6">
               <Button size="lg" variant="default" asChild className="shadow-lg">
-                <WaspRouterLink to={routes.SignupRoute.to}>
+                <WaspRouterLink to={routes.AgentCreateRoute.to}>
                   Start Free Trial <span aria-hidden="true">→</span>
                 </WaspRouterLink>
               </Button>
               <Button size="lg" variant="outline" asChild>
-                <WaspRouterLink to={routes.PricingPageRoute.to}>
+                <a href="#pricing">
                   View Pricing
-                </WaspRouterLink>
+                </a>
               </Button>
             </div>
 
