@@ -4,11 +4,10 @@ import TailwindForms from "@tailwindcss/forms";
 import TailwindTypography from "@tailwindcss/typography";
 import TailwindAnimate from "tailwindcss-animate";
 import defaultTheme from "tailwindcss/defaultTheme";
-import { resolveProjectPath } from "wasp/dev";
 
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: [resolveProjectPath("./src/**/*.{js,jsx,ts,tsx}")],
+  content: ["./src/**/*.{js,jsx,ts,tsx}"],
   darkMode: "class",
   theme: {
     extend: {
