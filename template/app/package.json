@@ -1,6 +1,13 @@
 {
-  "name": "opensaas",
+  "name": "afo-platform",
   "type": "module",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "start": "vite --host 0.0.0.0 --port 3000"
+  },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.523.0",
     "@aws-sdk/s3-presigned-post": "^3.750.0",
