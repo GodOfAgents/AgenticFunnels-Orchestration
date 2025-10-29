@@ -47,6 +47,12 @@ export function WorkflowCanvas() {
         const typesData = await apiClient.getWorkflowNodeTypes();
         setNodeTypes(typesData.node_types || []);
 
+        // Load integration status
+        if (agentId) {
+          const integrations = await apiClient.getAgentIntegrationStatus(agentId, userId);
+          setIntegrationStatus(integrations);
+        }
+
         // Load existing workflow if editing
         if (workflowId) {
           const workflow = await apiClient.getWorkflow(workflowId);
@@ -83,7 +89,7 @@ export function WorkflowCanvas() {
     };
 
     loadData();
-  }, [workflowId, setNodes, setEdges]);
+  }, [workflowId, agentId, userId, setNodes, setEdges]);
 
   // Handle connections between nodes
   const onConnect = useCallback(
