@@ -268,7 +268,7 @@ Always be helpful, courteous, and focused on the customer's needs.`;
     </div>
   );
 
-  // Step 3: Voice Configuration
+  // Step 3: Voice Configuration (Qwen 3 Omni + LiveKit)
   const renderStep3 = () => (
     <div className="space-y-6">
       <div className="text-center mb-6">
@@ -277,8 +277,8 @@ Always be helpful, courteous, and focused on the customer's needs.`;
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
           </svg>
         </div>
-        <h2 className="text-xl font-semibold text-gray-900">Voice Settings</h2>
-        <p className="text-sm text-gray-600 mt-1">Enable voice conversations (optional)</p>
+        <h2 className="text-xl font-semibold text-gray-900">Voice & Multimodal AI</h2>
+        <p className="text-sm text-gray-600 mt-1">Powered by Qwen 3 Omni + LiveKit</p>
       </div>
 
       <div className="bg-white border-2 border-gray-200 rounded-lg p-6">
@@ -294,76 +294,81 @@ Always be helpful, courteous, and focused on the customer's needs.`;
               Enable Voice Conversations
             </label>
             <p className="text-sm text-gray-600 mt-1">
-              Allow users to interact with your agent via voice calls
+              Allow users to interact with your agent via voice using our self-hosted multimodal AI
             </p>
           </div>
         </div>
       </div>
 
       {formData.voiceEnabled && (
-        <div className="space-y-4 pl-2">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Voice ID <span className="text-red-500">*</span>
-            </label>
-            <input
-              type="text"
-              value={formData.voiceId}
-              onChange={(e) => handleChange('voiceId', e.target.value)}
-              placeholder="e.g., EXAVITQu4vr4xnSDxMaL"
-              className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
-                errors.voiceId ? 'border-red-500' : 'border-gray-300'
-              }`}
-            />
-            {errors.voiceId && <p className="text-sm text-red-600 mt-1">{errors.voiceId}</p>}
-            <p className="text-xs text-gray-600 mt-1">
-              Get voice IDs from <a href="https://elevenlabs.io/voice-library" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">ElevenLabs Voice Library</a>
-            </p>
+        <div className="space-y-4">
+          <div className="bg-gradient-to-r from-blue-50 to-purple-50 border border-blue-200 rounded-lg p-6">
+            <div className="flex items-start">
+              <div className="flex-shrink-0">
+                <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+              </div>
+              <div className="ml-4">
+                <h4 className="font-semibold text-gray-900 mb-2">🚀 Qwen 3 Omni Multimodal AI</h4>
+                <p className="text-sm text-gray-700 mb-3">
+                  Your agent will use <strong>Qwen 3 Omni</strong> - a state-of-the-art multimodal model that handles:
+                </p>
+                <ul className="text-sm text-gray-700 space-y-1 ml-4">
+                  <li>• <strong>Speech-to-Text</strong> - Understands spoken input</li>
+                  <li>• <strong>Text-to-Speech</strong> - Responds with natural voice</li>
+                  <li>• <strong>Text Understanding</strong> - Processes complex queries</li>
+                  <li>• <strong>Multimodal Reasoning</strong> - All in one model</li>
+                </ul>
+              </div>
+            </div>
           </div>
 
-          <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
-            <h4 className="font-medium text-yellow-900 mb-2">🔑 API Keys Required</h4>
-            <p className="text-sm text-yellow-800">
-              Bring your own API keys for voice services. Your keys are encrypted and stored securely.
-            </p>
+          <div className="bg-green-50 border border-green-200 rounded-lg p-5">
+            <div className="flex items-start">
+              <div className="flex-shrink-0">
+                <svg className="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+              <div className="ml-4">
+                <h4 className="font-semibold text-green-900 mb-2">📡 LiveKit WebRTC</h4>
+                <p className="text-sm text-green-800">
+                  Real-time communication powered by <strong>LiveKit</strong> - self-hosted, secure, and scalable WebRTC infrastructure.
+                </p>
+              </div>
+            </div>
           </div>
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Deepgram API Key <span className="text-red-500">*</span>
-            </label>
-            <input
-              type="password"
-              value={formData.deepgramApiKey}
-              onChange={(e) => handleChange('deepgramApiKey', e.target.value)}
-              placeholder="••••••••••••••••"
-              className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
-                errors.deepgramApiKey ? 'border-red-500' : 'border-gray-300'
-              }`}
-            />
-            {errors.deepgramApiKey && <p className="text-sm text-red-600 mt-1">{errors.deepgramApiKey}</p>}
-            <p className="text-xs text-gray-600 mt-1">
-              For Speech-to-Text. Get from <a href="https://console.deepgram.com/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">Deepgram Console</a>
+          <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-5">
+            <h4 className="font-medium text-yellow-900 mb-2">🎉 No API Keys Required!</h4>
+            <p className="text-sm text-yellow-800 mb-2">
+              Unlike traditional voice services (Deepgram, ElevenLabs), our self-hosted solution means:
             </p>
+            <ul className="text-sm text-yellow-800 space-y-1 ml-4">
+              <li>• No external API keys needed</li>
+              <li>• No per-minute charges</li>
+              <li>• Complete data privacy</li>
+              <li>• Unlimited usage</li>
+            </ul>
           </div>
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              ElevenLabs API Key <span className="text-red-500">*</span>
-            </label>
-            <input
-              type="password"
-              value={formData.elevenLabsApiKey}
-              onChange={(e) => handleChange('elevenLabsApiKey', e.target.value)}
-              placeholder="••••••••••••••••"
-              className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
-                errors.elevenLabsApiKey ? 'border-red-500' : 'border-gray-300'
-              }`}
-            />
-            {errors.elevenLabsApiKey && <p className="text-sm text-red-600 mt-1">{errors.elevenLabsApiKey}</p>}
-            <p className="text-xs text-gray-600 mt-1">
-              For Text-to-Speech. Get from <a href="https://elevenlabs.io/api" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">ElevenLabs API</a>
-            </p>
+          <div className="border-2 border-dashed border-gray-300 rounded-lg p-6">
+            <div className="text-center">
+              <div className="inline-flex items-center justify-center w-12 h-12 bg-gray-100 rounded-full mb-3">
+                <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+              </div>
+              <h4 className="font-medium text-gray-900 mb-2">Advanced Configuration</h4>
+              <p className="text-sm text-gray-600 mb-3">
+                Voice settings are automatically configured for optimal performance.
+              </p>
+              <p className="text-xs text-gray-500">
+                Need custom voice models or languages? Contact support after agent creation.
+              </p>
+            </div>
           </div>
         </div>
       )}
