@@ -30,7 +30,14 @@ export function WorkflowCanvas() {
   const [workflowName, setWorkflowName] = useState('New Workflow');
   const [workflowDescription, setWorkflowDescription] = useState('');
   const [nodeTypes, setNodeTypes] = useState<any[]>([]);
+  const [integrationStatus, setIntegrationStatus] = useState<any>(null);
+  const [validationErrors, setValidationErrors] = useState<any[]>([]);
+  const [validationWarnings, setValidationWarnings] = useState<any[]>([]);
   const [isSaving, setIsSaving] = useState(false);
+  const [showValidation, setShowValidation] = useState(false);
+
+  // TODO: Get actual user ID from auth context
+  const userId = 'user-123'; // Placeholder
 
   // Load node types and workflow data
   useEffect(() => {
