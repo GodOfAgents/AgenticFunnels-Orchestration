@@ -138,6 +138,82 @@ export function WorkflowCanvas() {
     }
   };
 
+  // Validate workflow
+  const handleValidate = async () => {
+    const workflowNodes = nodes.map((node) => ({
+      id: node.id,
+      type: node.data.type || node.data.label,
+      config: node.data.config || {},
+      position: node.position,
+      next: edges.find((e) => e.source === node.id)?.target || null,
+    }));
+
+    const workflowData = {
+      agent_id: agentId,
+      name: workflowName,
+      description: workflowDescription,
+      trigger: 'conversation_start',
+      nodes: workflowNodes,
+    };
+
+    try {
+      const validation = await apiClient.validateWorkflow(workflowData, userId);
+      setValidationErrors(validation.errors || []);
+      setValidationWarnings(validation.warnings || []);
+      setShowValidation(true);
+      return validation.valid;
+    } catch (error) {
+      console.error('Validation failed:', error);
+      return false;
+    }
+  };
+
+  // Check if node type requires integration
+  const getNodeIntegrationRequirement = (nodeType: string) => {
+    if (!integrationStatus) return null;
+
+    const integrations = integrationStatus.integrations;
+    
+    if (nodeType === 'schedule_meeting') {
+      return {
+        required: true,
+        type: 'calendar',
+        configured: integrations.calendar?.configured,
+        message: integrations.calendar?.configured 
+          ? `Calendar: ${integrations.calendar.provider}` 
+          : 'Calendar integration required'
+      };
+    } else if (nodeType === 'crm_update') {
+      return {
+        required: true,
+        type: 'crm',
+        configured: integrations.crm?.configured,
+        message: integrations.crm?.configured 
+          ? `CRM: ${integrations.crm.provider}` 
+          : 'CRM integration required'
+      };
+    } else if (nodeType === 'email') {
+      return {
+        required: false,
+        type: 'email',
+        configured: integrations.email?.configured,
+        message: integrations.email?.configured 
+          ? `Email: ${integrations.email.provider}` 
+          : 'Email integration recommended'
+      };
+    }
+    
+    return null;
+  };
+
+  // Check if node can be added (integration available)
+  const canAddNode = (nodeType: string) => {
+    const requirement = getNodeIntegrationRequirement(nodeType);
+    if (!requirement) return true; // No integration required
+    if (!requirement.required) return true; // Optional integration
+    return requirement.configured; // Required integration must be configured
+  };
+
   // Save workflow
   const handleSave = async () => {
     if (!workflowName) {
