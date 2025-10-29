@@ -23,7 +23,7 @@ export default function ComparisonTable() {
                 <th className="px-6 py-4 text-center text-sm font-semibold text-white">
                   <div className="flex items-center justify-center">
                     <span className="mr-2">🚀</span>
-                    AFO (Qwen 3 Omni)
+                    AFO Platform
                   </div>
                 </th>
                 <th className="px-6 py-4 text-center text-sm font-semibold text-white/80">
