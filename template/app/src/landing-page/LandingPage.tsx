@@ -6,6 +6,7 @@ import Hero from "./components/Hero";
 import Testimonials from "./components/Testimonials";
 import HowItWorks from "./components/HowItWorks";
 import ComparisonTable from "./components/ComparisonTable";
+import Pricing from "./components/Pricing";
 import {
   examples,
   faqs,
@@ -23,6 +24,7 @@ export default function LandingPage() {
         <HowItWorks />
         <FeaturesGrid features={features} />
         <ComparisonTable />
+        <Pricing />
         <ExamplesCarousel examples={examples} />
         <Testimonials testimonials={testimonials} />
         <FAQ faqs={faqs} />
