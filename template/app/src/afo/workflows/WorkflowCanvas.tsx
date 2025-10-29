@@ -221,6 +221,25 @@ export function WorkflowCanvas() {
       return;
     }
 
+    // Validate before saving
+    const isValid = await handleValidate();
+    if (!isValid) {
+      const proceed = window.confirm(
+        `Workflow has ${validationErrors.length} error(s). Cannot save until errors are fixed.\n\n` +
+        validationErrors.map(e => `• ${e.message}`).join('\n')
+      );
+      return;
+    }
+
+    // Show warnings but allow saving
+    if (validationWarnings.length > 0) {
+      const proceed = window.confirm(
+        `Workflow has ${validationWarnings.length} warning(s). Save anyway?\n\n` +
+        validationWarnings.map(w => `• ${w.message}`).join('\n')
+      );
+      if (!proceed) return;
+    }
+
     setIsSaving(true);
     try {
       const workflowNodes = nodes.map((node) => ({
