@@ -436,6 +436,9 @@ Always be helpful, courteous, and focused on the customer's needs.`;
                   onChange={(e) => handleIntegrationChange(0, 'credentials', { apiKey: e.target.value })}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
                 />
+                <p className="text-xs text-gray-500 mt-1">
+                  Get from <a href="https://console.cloud.google.com/apis/credentials" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">Google Cloud Console</a>
+                </p>
               </div>
             )}
 
@@ -446,6 +449,125 @@ Always be helpful, courteous, and focused on the customer's needs.`;
                   type="password"
                   placeholder="Enter API key..."
                   onChange={(e) => handleIntegrationChange(0, 'credentials', { apiKey: e.target.value })}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                />
+                <p className="text-xs text-gray-500 mt-1">
+                  Get from <a href="https://calendly.com/integrations/api_webhooks" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">Calendly Settings</a>
+                </p>
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+
+      {/* Video Meeting Integration */}
+      <div className="border border-gray-200 rounded-lg p-5 bg-gradient-to-r from-purple-50 to-blue-50">
+        <div className="flex items-start mb-4">
+          <input
+            type="checkbox"
+            checked={integrations[0].enabled && ['google_meet', 'zoom', 'teams'].includes(integrations[0].provider)}
+            onChange={(e) => {
+              if (e.target.checked) {
+                handleIntegrationChange(0, 'enabled', true);
+              }
+            }}
+            className="w-5 h-5 text-blue-600 border-gray-300 rounded focus:ring-blue-500 mt-1"
+          />
+          <div className="ml-3 flex-1">
+            <label className="text-base font-medium text-gray-900">🎥 Video Meeting Integration</label>
+            <p className="text-sm text-gray-600 mt-1">Create and schedule video meetings</p>
+          </div>
+        </div>
+
+        {integrations[0].enabled && (
+          <div className="pl-8 space-y-3">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Platform</label>
+              <div className="grid grid-cols-3 gap-3">
+                <button
+                  type="button"
+                  onClick={() => handleIntegrationChange(0, 'provider', 'google_meet')}
+                  className={`p-3 border-2 rounded-lg text-center transition ${
+                    integrations[0].provider === 'google_meet'
+                      ? 'border-blue-500 bg-blue-50'
+                      : 'border-gray-200 hover:border-gray-300'
+                  }`}
+                >
+                  <div className="text-2xl mb-1">🔵</div>
+                  <div className="text-xs font-medium">Google Meet</div>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleIntegrationChange(0, 'provider', 'zoom')}
+                  className={`p-3 border-2 rounded-lg text-center transition ${
+                    integrations[0].provider === 'zoom'
+                      ? 'border-blue-500 bg-blue-50'
+                      : 'border-gray-200 hover:border-gray-300'
+                  }`}
+                >
+                  <div className="text-2xl mb-1">📹</div>
+                  <div className="text-xs font-medium">Zoom</div>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleIntegrationChange(0, 'provider', 'teams')}
+                  className={`p-3 border-2 rounded-lg text-center transition ${
+                    integrations[0].provider === 'teams'
+                      ? 'border-blue-500 bg-blue-50'
+                      : 'border-gray-200 hover:border-gray-300'
+                  }`}
+                >
+                  <div className="text-2xl mb-1">💼</div>
+                  <div className="text-xs font-medium">MS Teams</div>
+                </button>
+              </div>
+            </div>
+
+            {integrations[0].provider === 'google_meet' && (
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Google Meet API Credentials</label>
+                <input
+                  type="password"
+                  placeholder="OAuth 2.0 Client ID..."
+                  onChange={(e) => handleIntegrationChange(0, 'credentials', { clientId: e.target.value })}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+            )}
+
+            {integrations[0].provider === 'zoom' && (
+              <div className="space-y-2">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Zoom API Key</label>
+                  <input
+                    type="password"
+                    placeholder="Enter API key..."
+                    onChange={(e) => handleIntegrationChange(0, 'credentials', { apiKey: e.target.value })}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Zoom API Secret</label>
+                  <input
+                    type="password"
+                    placeholder="Enter API secret..."
+                    onChange={(e) => handleIntegrationChange(0, 'credentials', { ...integrations[0].credentials, apiSecret: e.target.value })}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                  />
+                </div>
+                <p className="text-xs text-gray-500">
+                  Get from <a href="https://marketplace.zoom.us/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">Zoom App Marketplace</a>
+                </p>
+              </div>
+            )}
+
+            {integrations[0].provider === 'teams' && (
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Microsoft Teams Webhook URL</label>
+                <input
+                  type="url"
+                  placeholder="https://outlook.office.com/webhook/..."
+                  onChange={(e) => handleIntegrationChange(0, 'credentials', { webhookUrl: e.target.value })}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
                 />
               </div>
@@ -481,6 +603,8 @@ Always be helpful, courteous, and focused on the customer's needs.`;
                 <option value="">Select provider...</option>
                 <option value="salesforce">Salesforce</option>
                 <option value="hubspot">HubSpot</option>
+                <option value="pipedrive">Pipedrive</option>
+                <option value="zoho">Zoho CRM</option>
                 <option value="webhook">Custom Webhook</option>
               </select>
             </div>
@@ -492,6 +616,18 @@ Always be helpful, courteous, and focused on the customer's needs.`;
                   type="url"
                   placeholder="https://your-crm.com/webhook"
                   onChange={(e) => handleIntegrationChange(1, 'credentials', { webhookUrl: e.target.value })}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+            )}
+
+            {integrations[1].provider && integrations[1].provider !== 'webhook' && (
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">API Key</label>
+                <input
+                  type="password"
+                  placeholder="Enter API key..."
+                  onChange={(e) => handleIntegrationChange(1, 'credentials', { apiKey: e.target.value })}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
                 />
               </div>
@@ -527,6 +663,7 @@ Always be helpful, courteous, and focused on the customer's needs.`;
                 <option value="">Select provider...</option>
                 <option value="sendgrid">SendGrid</option>
                 <option value="ses">AWS SES</option>
+                <option value="mailgun">Mailgun</option>
                 <option value="smtp">Custom SMTP</option>
               </select>
             </div>
@@ -542,6 +679,155 @@ Always be helpful, courteous, and focused on the customer's needs.`;
                 />
               </div>
             )}
+
+            {integrations[2].provider === 'smtp' && (
+              <div className="space-y-2">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">SMTP Host</label>
+                  <input
+                    type="text"
+                    placeholder="smtp.example.com"
+                    onChange={(e) => handleIntegrationChange(2, 'credentials', { host: e.target.value })}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                  />
+                </div>
+                <div className="grid grid-cols-2 gap-2">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Port</label>
+                    <input
+                      type="number"
+                      placeholder="587"
+                      onChange={(e) => handleIntegrationChange(2, 'credentials', { ...integrations[2].credentials, port: e.target.value })}
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Username</label>
+                    <input
+                      type="text"
+                      placeholder="user@example.com"
+                      onChange={(e) => handleIntegrationChange(2, 'credentials', { ...integrations[2].credentials, username: e.target.value })}
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                    />
+                  </div>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Password</label>
+                  <input
+                    type="password"
+                    placeholder="Enter password..."
+                    onChange={(e) => handleIntegrationChange(2, 'credentials', { ...integrations[2].credentials, password: e.target.value })}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                  />
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+
+      {/* Twilio / SMS Integration */}
+      <div className="border border-gray-200 rounded-lg p-5 bg-gradient-to-r from-green-50 to-teal-50">
+        <div className="flex items-start mb-4">
+          <input
+            type="checkbox"
+            checked={integrations[3].enabled}
+            onChange={(e) => handleIntegrationChange(3, 'enabled', e.target.checked)}
+            className="w-5 h-5 text-blue-600 border-gray-300 rounded focus:ring-blue-500 mt-1"
+          />
+          <div className="ml-3 flex-1">
+            <label className="text-base font-medium text-gray-900">📱 Twilio / SMS / VoIP Integration</label>
+            <p className="text-sm text-gray-600 mt-1">Enable SMS messaging and phone calls via Twilio</p>
+          </div>
+        </div>
+
+        {integrations[3].enabled && (
+          <div className="pl-8 space-y-3">
+            <div className="bg-green-100 border border-green-300 rounded-lg p-3 mb-3">
+              <p className="text-sm text-green-800">
+                <strong>Twilio</strong> provides SMS, voice calls, and VoIP bridging for your agent
+              </p>
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Twilio Account SID</label>
+              <input
+                type="text"
+                placeholder="AC..."
+                onChange={(e) => handleIntegrationChange(3, 'credentials', { accountSid: e.target.value })}
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Twilio Auth Token</label>
+              <input
+                type="password"
+                placeholder="Enter auth token..."
+                onChange={(e) => handleIntegrationChange(3, 'credentials', { ...integrations[3].credentials, authToken: e.target.value })}
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Twilio Phone Number</label>
+              <input
+                type="tel"
+                placeholder="+1234567890"
+                onChange={(e) => handleIntegrationChange(3, 'credentials', { ...integrations[3].credentials, phoneNumber: e.target.value })}
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+              />
+              <p className="text-xs text-gray-500 mt-1">
+                Get from <a href="https://console.twilio.com/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">Twilio Console</a>
+              </p>
+            </div>
+
+            <div className="flex items-start bg-blue-50 border border-blue-200 rounded-lg p-3">
+              <svg className="w-5 h-5 text-blue-600 mt-0.5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <p className="text-xs text-blue-800">
+                <strong>VoIP Bridge:</strong> Twilio automatically bridges LiveKit voice calls to phone networks
+              </p>
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Google Drive Integration */}
+      <div className="border border-gray-200 rounded-lg p-5">
+        <div className="flex items-start mb-4">
+          <input
+            type="checkbox"
+            checked={integrations[0].enabled && integrations[0].provider === 'google_drive'}
+            onChange={(e) => {
+              if (e.target.checked) {
+                handleIntegrationChange(0, 'enabled', true);
+                handleIntegrationChange(0, 'provider', 'google_drive');
+              }
+            }}
+            className="w-5 h-5 text-blue-600 border-gray-300 rounded focus:ring-blue-500 mt-1"
+          />
+          <div className="ml-3 flex-1">
+            <label className="text-base font-medium text-gray-900">📁 Google Drive Integration</label>
+            <p className="text-sm text-gray-600 mt-1">Store and share files via Google Drive</p>
+          </div>
+        </div>
+
+        {integrations[0].enabled && integrations[0].provider === 'google_drive' && (
+          <div className="pl-8 space-y-3">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Google Drive API Key</label>
+              <input
+                type="password"
+                placeholder="Enter API key..."
+                onChange={(e) => handleIntegrationChange(0, 'credentials', { apiKey: e.target.value })}
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+              />
+              <p className="text-xs text-gray-500 mt-1">
+                Enable Google Drive API in <a href="https://console.cloud.google.com/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">Google Cloud Console</a>
+              </p>
+            </div>
           </div>
         )}
       </div>
@@ -565,7 +851,7 @@ Always be helpful, courteous, and focused on the customer's needs.`;
           <div className="flex justify-between">
             <span className="text-gray-600">Voice:</span>
             <span className={`font-medium ${formData.voiceEnabled ? 'text-green-600' : 'text-gray-500'}`}>
-              {formData.voiceEnabled ? 'Enabled' : 'Disabled'}
+              {formData.voiceEnabled ? 'Enabled (Qwen 3 Omni)' : 'Disabled'}
             </span>
           </div>
           <div className="flex justify-between">
@@ -574,6 +860,18 @@ Always be helpful, courteous, and focused on the customer's needs.`;
               {integrations.filter(i => i.enabled).length} configured
             </span>
           </div>
+          {integrations.filter(i => i.enabled).length > 0 && (
+            <div className="mt-2 pt-2 border-t border-gray-200">
+              <p className="text-xs text-gray-600 mb-1">Enabled:</p>
+              <div className="flex flex-wrap gap-1">
+                {integrations.filter(i => i.enabled).map((int, idx) => (
+                  <span key={idx} className="text-xs px-2 py-1 bg-blue-100 text-blue-700 rounded">
+                    {int.provider || int.type}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>
