@@ -27,9 +27,8 @@ export default function AgentCreatePageEnhanced({ user }: any) {
     persona: 'professional',
     systemPrompt: '',
     voiceEnabled: false,
-    voiceId: '',
-    deepgramApiKey: '',
-    elevenLabsApiKey: '',
+    // Qwen 3 Omni settings (no API keys needed if using self-hosted)
+    liveKitEnabled: false,
   });
 
   const [integrations, setIntegrations] = useState<Integration[]>([
