@@ -1,4 +1,4 @@
-import { ResetPasswordForm } from "wasp/client/auth";
+import { ResetPasswordForm } from '@src/lib/auth';
 import { Link as WaspRouterLink, routes } from "wasp/client/router";
 import { AuthPageLayout } from "../AuthPageLayout";
 

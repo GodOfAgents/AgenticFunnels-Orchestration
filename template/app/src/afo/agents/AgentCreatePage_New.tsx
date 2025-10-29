@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useAuth } from 'wasp/client/auth';
+import { useAuth } from '@src/lib/auth';
 import apiClient from '../lib/api-client';
 
 const VOICE_PERSONAS = [

@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { useAuth } from 'wasp/client/auth';
+import { useAuth } from '@src/lib/auth';
 import apiClient from '../lib/api-client';
 
 interface Message {

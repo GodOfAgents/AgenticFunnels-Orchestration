@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useAuth } from 'wasp/client/auth';
+import { useAuth } from '@src/lib/auth';
 import { Link as WaspRouterLink, routes } from 'wasp/client/router';
 import apiClient from '../lib/api-client';
 
