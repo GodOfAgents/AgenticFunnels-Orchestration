@@ -253,6 +253,17 @@ class APIClient {
     });
   }
 
+  async getAgentIntegrationStatus(agentId: string, userId: string) {
+    return this.request(`/api/workflows/agent/${agentId}/integration-status?user_id=${userId}`);
+  }
+
+  async validateWorkflow(workflowData: any, userId: string) {
+    return this.request(`/api/workflows/validate?user_id=${userId}`, {
+      method: 'POST',
+      body: JSON.stringify(workflowData),
+    });
+  }
+
   // Phase 2: Voice Session APIs
   async createVoiceSession(data: any) {
     return this.request('/api/phase2/voice/session', {
