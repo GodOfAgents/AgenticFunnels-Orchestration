@@ -409,16 +409,49 @@ export function WorkflowCanvas() {
           <div className="p-4">
             <h3 className="text-sm font-semibold text-gray-700 mb-3">Node Types</h3>
             <div className="space-y-2">
-              {nodeTypes.map((type) => (
-                <button
-                  key={type.type}
-                  onClick={() => handleAddNode(type.type)}
-                  className="w-full text-left px-3 py-2 border border-gray-200 rounded-lg hover:bg-blue-50 hover:border-blue-300 transition"
-                >
-                  <div className="font-medium text-sm">{type.label}</div>
-                  <div className="text-xs text-gray-500 mt-1">{type.description}</div>
-                </button>
-              ))}
+              {nodeTypes.map((type) => {
+                const requirement = getNodeIntegrationRequirement(type.type);
+                const canAdd = canAddNode(type.type);
+                
+                return (
+                  <button
+                    key={type.type}
+                    onClick={() => canAdd && handleAddNode(type.type)}
+                    disabled={!canAdd}
+                    className={`w-full text-left px-3 py-2 border rounded-lg transition ${
+                      canAdd
+                        ? 'border-gray-200 hover:bg-blue-50 hover:border-blue-300'
+                        : 'border-gray-200 bg-gray-50 opacity-50 cursor-not-allowed'
+                    }`}
+                    title={requirement ? requirement.message : type.description}
+                  >
+                    <div className="flex items-center justify-between">
+                      <div className="font-medium text-sm">{type.label}</div>
+                      {requirement && (
+                        <span
+                          className={`text-xs px-1.5 py-0.5 rounded ${
+                            requirement.configured
+                              ? 'bg-green-100 text-green-700'
+                              : requirement.required
+                              ? 'bg-red-100 text-red-700'
+                              : 'bg-yellow-100 text-yellow-700'
+                          }`}
+                        >
+                          {requirement.configured ? '✓' : requirement.required ? '!' : '?'}
+                        </span>
+                      )}
+                    </div>
+                    <div className="text-xs text-gray-500 mt-1">{type.description}</div>
+                    {requirement && !requirement.configured && (
+                      <div className={`text-xs mt-1 ${
+                        requirement.required ? 'text-red-600' : 'text-yellow-600'
+                      }`}>
+                        {requirement.message}
+                      </div>
+                    )}
+                  </button>
+                );
+              })}
             </div>
 
             <div className="mt-6">
