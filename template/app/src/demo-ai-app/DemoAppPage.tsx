@@ -8,7 +8,7 @@ import {
   updateTask,
   useQuery,
 } from "wasp/client/operations";
-import { Link, routes } from "wasp/client/router";
+import { Link, routes } from '@src/lib/router';
 
 import { ArrowRight, Loader2, Trash2 } from "lucide-react";
 import { useMemo, useState } from "react";

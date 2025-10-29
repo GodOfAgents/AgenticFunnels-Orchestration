@@ -1,5 +1,5 @@
 import { LoginForm } from '@src/lib/auth';
-import { Link as WaspRouterLink, routes } from "wasp/client/router";
+import { Link as WaspRouterLink, routes } from '@src/lib/router';
 import { AuthPageLayout } from "./AuthPageLayout";
 
 export default function Login() {

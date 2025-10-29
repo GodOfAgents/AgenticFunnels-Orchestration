@@ -1,7 +1,7 @@
 import { ChevronDown, LogOut, User } from "lucide-react";
 import { useState } from "react";
 import { logout } from '@src/lib/auth';
-import { Link as WaspRouterLink } from "wasp/client/router";
+import { Link as WaspRouterLink } from '@src/lib/router';
 import { type User as UserEntity } from "wasp/entities";
 import {
   DropdownMenu,

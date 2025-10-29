@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
-import { Link as WaspRouterLink, routes } from 'wasp/client/router';
+import { Link as WaspRouterLink, routes } from '@src/lib/router';
 import apiClient from '../lib/api-client';
 
 const VOICE_PERSONAS = {

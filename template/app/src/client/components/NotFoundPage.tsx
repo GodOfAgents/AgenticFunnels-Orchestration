@@ -1,5 +1,5 @@
 import { useAuth } from '@src/lib/auth';
-import { Link as WaspRouterLink, routes } from "wasp/client/router";
+import { Link as WaspRouterLink, routes } from '@src/lib/router';
 
 export function NotFoundPage() {
   const { data: user } = useAuth();

@@ -1,4 +1,4 @@
-import { Link as WaspRouterLink, routes } from "wasp/client/router";
+import { Link as WaspRouterLink, routes } from '@src/lib/router';
 interface BreadcrumbProps {
   pageName: string;
 }

@@ -1,4 +1,4 @@
-import { routes } from "wasp/client/router";
+import { routes } from '@src/lib/router';
 import { BlogUrl, DocsUrl } from "../../../shared/common";
 import type { NavigationItem } from "./NavBar";
 

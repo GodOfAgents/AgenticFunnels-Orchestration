@@ -1,4 +1,4 @@
-import { Link as WaspRouterLink, routes } from "wasp/client/router";
+import { Link as WaspRouterLink, routes } from '@src/lib/router';
 import openSaasBannerDark from "../../client/static/open-saas-banner-dark.svg";
 import openSaasBannerLight from "../../client/static/open-saas-banner-light.svg";
 import { Button } from "../../components/ui/button";

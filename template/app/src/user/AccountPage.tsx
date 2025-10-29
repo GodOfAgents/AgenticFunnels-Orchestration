@@ -1,5 +1,5 @@
 import { getCustomerPortalUrl, useQuery } from "wasp/client/operations";
-import { Link as WaspRouterLink, routes } from "wasp/client/router";
+import { Link as WaspRouterLink, routes } from '@src/lib/router';
 import type { User } from "wasp/entities";
 import { Button } from "../components/ui/button";
 import {

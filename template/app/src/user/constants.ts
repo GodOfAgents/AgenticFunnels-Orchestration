@@ -1,5 +1,5 @@
 import { LayoutDashboard, Settings, Shield } from "lucide-react";
-import { routes } from "wasp/client/router";
+import { routes } from '@src/lib/router';
 
 export const userMenuItems = [
   {

@@ -1,6 +1,6 @@
 import { LogOut } from "lucide-react";
 import { logout } from '@src/lib/auth';
-import { Link as WaspRouterLink } from "wasp/client/router";
+import { Link as WaspRouterLink } from '@src/lib/router';
 import { type User } from "wasp/entities";
 import { userMenuItems } from "./constants";
 
