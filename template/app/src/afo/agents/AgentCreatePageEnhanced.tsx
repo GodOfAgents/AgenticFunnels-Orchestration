@@ -61,14 +61,8 @@ export default function AgentCreatePageEnhanced({ user }: any) {
   };
 
   const validateStep3 = () => {
-    if (!formData.voiceEnabled) return true;
-    
-    const newErrors: any = {};
-    if (!formData.voiceId) newErrors.voiceId = 'Voice ID is required when voice is enabled';
-    if (!formData.deepgramApiKey) newErrors.deepgramApiKey = 'Deepgram API key is required';
-    if (!formData.elevenLabsApiKey) newErrors.elevenLabsApiKey = 'ElevenLabs API key is required';
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
+    // No validation needed for Qwen 3 Omni + LiveKit (self-hosted)
+    return true;
   };
 
   const handleNext = () => {
