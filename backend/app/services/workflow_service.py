@@ -288,9 +288,13 @@ class WorkflowService:
                 if not agent_id:
                     return {"error": "Agent ID not provided for RAG query"}
                 
-                # Query knowledge base
-                results = await knowledge_service.search(agent_id, query, limit=5)
-                return {"rag_results": results, "query": query}
+                # TODO: Integrate with actual RAG/knowledge service
+                # For now, return placeholder
+                return {
+                    "rag_results": [],
+                    "query": query,
+                    "message": "RAG integration pending"
+                }
             except Exception as e:
                 return {"error": str(e)}
         
