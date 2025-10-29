@@ -14,7 +14,7 @@ export default function Hero() {
             {/* Badge */}
             <div className="mb-6 inline-flex items-center rounded-full border border-blue-200 bg-blue-50 px-4 py-2 text-sm font-medium text-blue-700 dark:border-blue-900 dark:bg-blue-950 dark:text-blue-300">
               <span className="mr-2">🚀</span>
-              Powered by Qwen 3 Omni • Open Source • Apache 2.0
+              Powered by Open Source AI • Apache 2.0
             </div>
 
             {/* Main Headline */}
