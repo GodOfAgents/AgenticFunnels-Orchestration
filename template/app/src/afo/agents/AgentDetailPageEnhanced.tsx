@@ -15,7 +15,7 @@ export default function AgentDetailPageEnhanced() {
   const [editMode, setEditMode] = useState(false);
   const [showTestChat, setShowTestChat] = useState(false);
   const [integrations, setIntegrations] = useState<any[]>([]);
-  const history = useNavigate();
+  const navigate = useNavigate();
 
   // TODO: Replace with actual user ID from auth
   const userId = 'user-123';

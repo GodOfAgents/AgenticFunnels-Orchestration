@@ -47,7 +47,7 @@ const LANGUAGES = [
 
 export default function AgentCreatePage() {
   const { data: user } = useAuth();
-  const history = useNavigate();
+  const navigate = useNavigate();
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
 

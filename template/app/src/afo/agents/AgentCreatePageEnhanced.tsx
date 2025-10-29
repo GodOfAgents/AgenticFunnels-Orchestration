@@ -19,7 +19,7 @@ export default function AgentCreatePageEnhanced({ user }: any) {
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState<any>({});
-  const history = useNavigate();
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     name: '',

@@ -25,7 +25,7 @@ const VOICE_PERSONAS = {
 
 export default function AgentDetailPage() {
   const { id } = useParams<{ id: string }>();
-  const history = useNavigate();
+  const navigate = useNavigate();
   const [agent, setAgent] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState('overview');

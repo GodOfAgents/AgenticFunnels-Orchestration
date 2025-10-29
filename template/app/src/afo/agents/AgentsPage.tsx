@@ -5,7 +5,7 @@ import apiClient from '../lib/api-client';
 export default function AgentsPage({ user }: any) {
   const [agents, setAgents] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
-  const history = useNavigate();
+  const navigate = useNavigate();
 
   useEffect(() => {
     loadAgents();

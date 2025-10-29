@@ -7,7 +7,7 @@ export default function AgentDetailPage() {
   const [agent, setAgent] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState('overview');
-  const history = useNavigate();
+  const navigate = useNavigate();
 
   useEffect(() => {
     loadAgent();

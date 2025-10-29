@@ -5,7 +5,7 @@ import apiClient from '../lib/api-client';
 export default function AgentCreatePage({ user }: any) {
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
-  const history = useNavigate();
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     name: '',

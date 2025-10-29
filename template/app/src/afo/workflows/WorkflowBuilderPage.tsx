@@ -7,7 +7,7 @@ export default function WorkflowBuilderPage({ user }: any) {
   const [workflows, setWorkflows] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [showCreate, setShowCreate] = useState(false);
-  const history = useNavigate();
+  const navigate = useNavigate();
 
   useEffect(() => {
     loadWorkflows();
