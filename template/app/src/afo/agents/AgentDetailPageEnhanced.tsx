@@ -4,7 +4,7 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import apiClient from '../lib/api-client';
 
 export default function AgentDetailPageEnhanced() {
@@ -15,7 +15,7 @@ export default function AgentDetailPageEnhanced() {
   const [editMode, setEditMode] = useState(false);
   const [showTestChat, setShowTestChat] = useState(false);
   const [integrations, setIntegrations] = useState<any[]>([]);
-  const history = useHistory();
+  const history = useNavigate();
 
   // TODO: Replace with actual user ID from auth
   const userId = 'user-123';

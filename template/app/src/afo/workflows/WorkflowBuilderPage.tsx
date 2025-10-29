@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import apiClient from '../lib/api-client';
 
 export default function WorkflowBuilderPage({ user }: any) {
@@ -7,7 +7,7 @@ export default function WorkflowBuilderPage({ user }: any) {
   const [workflows, setWorkflows] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [showCreate, setShowCreate] = useState(false);
-  const history = useHistory();
+  const history = useNavigate();
 
   useEffect(() => {
     loadWorkflows();

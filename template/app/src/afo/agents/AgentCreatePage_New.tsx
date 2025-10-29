@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@src/lib/auth';
 import apiClient from '../lib/api-client';
 
@@ -47,7 +47,7 @@ const LANGUAGES = [
 
 export default function AgentCreatePage() {
   const { data: user } = useAuth();
-  const history = useHistory();
+  const history = useNavigate();
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
 

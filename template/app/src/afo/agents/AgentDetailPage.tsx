@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import apiClient from '../lib/api-client';
 
 export default function AgentDetailPage() {
@@ -7,7 +7,7 @@ export default function AgentDetailPage() {
   const [agent, setAgent] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState('overview');
-  const history = useHistory();
+  const history = useNavigate();
 
   useEffect(() => {
     loadAgent();

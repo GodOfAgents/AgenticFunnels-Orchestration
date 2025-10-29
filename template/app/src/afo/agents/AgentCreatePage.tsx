@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import apiClient from '../lib/api-client';
 
 export default function AgentCreatePage({ user }: any) {
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
-  const history = useHistory();
+  const history = useNavigate();
 
   const [formData, setFormData] = useState({
     name: '',

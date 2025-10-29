@@ -4,7 +4,7 @@
  */
 
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import apiClient from '../lib/api-client';
 
 // Integration types
@@ -19,7 +19,7 @@ export default function AgentCreatePageEnhanced({ user }: any) {
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState<any>({});
-  const history = useHistory();
+  const history = useNavigate();
 
   const [formData, setFormData] = useState({
     name: '',

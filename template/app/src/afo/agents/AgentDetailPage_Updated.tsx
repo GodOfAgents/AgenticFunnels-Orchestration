@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { Link as WaspRouterLink, routes } from '@src/lib/router';
 import apiClient from '../lib/api-client';
 
@@ -25,7 +25,7 @@ const VOICE_PERSONAS = {
 
 export default function AgentDetailPage() {
   const { id } = useParams<{ id: string }>();
-  const history = useHistory();
+  const history = useNavigate();
   const [agent, setAgent] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState('overview');
