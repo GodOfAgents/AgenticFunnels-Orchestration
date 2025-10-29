@@ -64,8 +64,12 @@ Build Phase 2 features for the Agentic Funnel Orchestration (AFO) platform, incl
 - ✅ Visual Workflow Builder frontend component created with integration awareness
 - ✅ Node palette shows integration requirements and disables nodes without integrations
 - ✅ Validation UI displays errors and warnings before saving
+- ✅ Enhanced Agent Creation UI with 4-step wizard (Basic Info, Instructions, Voice, Integrations)
+- ✅ Visual persona selector with icons
+- ✅ Integration configuration during agent creation (Calendar, CRM, Email)
 - ⏳ Frontend not yet started (requires Wasp setup)
 - ⏳ End-to-end workflow builder testing with real integrations needed
+- ⏳ End-to-end agent creation testing needed
 
 ## Testing Required
 1. Backend endpoint testing for Phase 2 features
