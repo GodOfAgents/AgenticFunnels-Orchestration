@@ -341,6 +341,12 @@ page AgentDetailPage {
   authRequired: true,
   component: import AgentDetailPage from "@src/afo/agents/AgentDetailPage"
 }
+
+route AgentDetailEnhancedRoute { path: "/agent/:id/dashboard", to: AgentDetailPageEnhanced }
+page AgentDetailPageEnhanced {
+  authRequired: true,
+  component: import AgentDetailPageEnhanced from "@src/afo/agents/AgentDetailPageEnhanced"
+}
 //#endregion
 
 //#region AFO Platform - Conversations
