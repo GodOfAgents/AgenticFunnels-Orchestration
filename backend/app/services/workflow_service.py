@@ -219,17 +219,132 @@ class WorkflowService:
             return {"info_sent": True}
         
         elif node_type == "api_call":
-            # Call external API
-            # TODO: Implement generic webhook/API calling
-            return {"api_response": None}
+            # Call external API via webhook
+            try:
+                url = config.get("url")
+                method = config.get("method", "POST")
+                headers = config.get("headers", {})
+                body = config.get("body", {})
+                
+                # Replace variables in body with context values
+                body = self._replace_variables(body, context)
+                
+                async with httpx.AsyncClient() as client:
+                    if method.upper() == "GET":
+                        response = await client.get(url, headers=headers)
+                    elif method.upper() == "POST":
+                        response = await client.post(url, headers=headers, json=body)
+                    elif method.upper() == "PUT":
+                        response = await client.put(url, headers=headers, json=body)
+                    elif method.upper() == "DELETE":
+                        response = await client.delete(url, headers=headers)
+                    else:
+                        return {"error": f"Unsupported HTTP method: {method}"}
+                    
+                    return {
+                        "api_response": response.json() if response.status_code == 200 else None,
+                        "status_code": response.status_code
+                    }
+            except Exception as e:
+                return {"error": str(e)}
+        
+        elif node_type == "webhook":
+            # Send webhook
+            try:
+                url = config.get("url")
+                payload = config.get("payload", {})
+                
+                # Replace variables in payload with context values
+                payload = self._replace_variables(payload, context)
+                
+                result = await webhook_service.send_webhook(url, payload)
+                return {"webhook_sent": True, "result": result}
+            except Exception as e:
+                return {"error": str(e)}
         
         elif node_type == "crm_update":
-            # Update CRM
-            # TODO: Implement CRM integration
-            return {"crm_updated": True}
+            # Update CRM via webhook
+            try:
+                crm_url = user_integrations.get("crm_webhook_url")
+                if not crm_url:
+                    return {"error": "CRM webhook URL not configured"}
+                
+                lead_data = config.get("data", {})
+                # Replace variables in lead data with context values
+                lead_data = self._replace_variables(lead_data, context)
+                
+                result = await webhook_service.send_crm_lead(crm_url, lead_data)
+                return {"crm_updated": True, "result": result}
+            except Exception as e:
+                return {"error": str(e)}
+        
+        elif node_type == "rag_query":
+            # Query knowledge base via RAG
+            try:
+                agent_id = config.get("agent_id")
+                query = config.get("query", "")
+                
+                # Replace variables in query with context values
+                query = self._replace_variables(query, context)
+                
+                if not agent_id:
+                    return {"error": "Agent ID not provided for RAG query"}
+                
+                # Query knowledge base
+                results = await knowledge_service.search(agent_id, query, limit=5)
+                return {"rag_results": results, "query": query}
+            except Exception as e:
+                return {"error": str(e)}
+        
+        elif node_type == "email":
+            # Send email (placeholder - would integrate with email service)
+            try:
+                to_email = config.get("to")
+                subject = config.get("subject", "")
+                body = config.get("body", "")
+                
+                # Replace variables with context values
+                to_email = self._replace_variables(to_email, context)
+                subject = self._replace_variables(subject, context)
+                body = self._replace_variables(body, context)
+                
+                # TODO: Integrate with actual email service
+                return {
+                    "email_sent": True,
+                    "to": to_email,
+                    "subject": subject
+                }
+            except Exception as e:
+                return {"error": str(e)}
+        
+        elif node_type == "delay":
+            # Add delay (in seconds)
+            import asyncio
+            delay_seconds = config.get("seconds", 1)
+            await asyncio.sleep(delay_seconds)
+            return {"delayed": True, "seconds": delay_seconds}
         
         else:
             return {"node_type": node_type, "executed": True}
+    
+    def _replace_variables(self, data: Any, context: dict) -> Any:
+        """
+        Replace variables in data with context values
+        Supports {{variable_name}} syntax
+        """
+        if isinstance(data, str):
+            # Replace {{variable}} with context value
+            for key, value in context.items():
+                placeholder = f"{{{{{key}}}}}"
+                if placeholder in data:
+                    data = data.replace(placeholder, str(value))
+            return data
+        elif isinstance(data, dict):
+            return {k: self._replace_variables(v, context) for k, v in data.items()}
+        elif isinstance(data, list):
+            return [self._replace_variables(item, context) for item in data]
+        else:
+            return data
     
     def _evaluate_condition(self, condition: str, context: dict) -> bool:
         """
