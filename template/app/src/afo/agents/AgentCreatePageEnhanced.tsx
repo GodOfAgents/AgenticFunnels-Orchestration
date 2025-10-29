@@ -35,6 +35,7 @@ export default function AgentCreatePageEnhanced({ user }: any) {
     { type: 'calendar', provider: '', enabled: false, credentials: {} },
     { type: 'crm', provider: '', enabled: false, credentials: {} },
     { type: 'email', provider: '', enabled: false, credentials: {} },
+    { type: 'twilio', provider: 'twilio', enabled: false, credentials: {} },
   ]);
 
   const handleChange = (field: string, value: any) => {
