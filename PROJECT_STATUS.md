@@ -355,81 +355,147 @@
 
 ---
 
-## 💻 Commands to Run Next
+## 💻 Tech Stack (Current)
 
-When you have access to the deployment environment:
+### Backend
+- **Framework:** FastAPI (Python 3.10+)
+- **Database:** MongoDB (NoSQL, document-based)
+- **Vector DB:** Milvus (for RAG, requires setup)
+- **Caching:** Redis (optional, not required)
+- **AI Services:**
+  - OpenAI (via Emergent LLM Key)
+  - Qwen 3 Omni (multimodal)
+  - ElevenLabs (TTS)
+- **WebSocket:** Native FastAPI WebSocket support
+- **Process Management:** Supervisor
 
+### Frontend
+- **Framework:** React 18
+- **Build Tool:** Vite
+- **Routing:** React Router v6
+- **UI Library:** Tailwind CSS
+- **Workflow UI:** React Flow
+- **State Management:** React Context + Hooks
+- **HTTP Client:** Fetch API
+- **WebSocket:** Native WebSocket API
+
+### Deployment
+- **Orchestration:** Kubernetes
+- **Service Management:** Supervisor
+- **Frontend Port:** 3000 (internal)
+- **Backend Port:** 8001 (internal)
+- **Environment:** Containerized Linux environment
+
+---
+
+## 💻 Commands to Run
+
+### Service Management
 ```bash
-# 1. Install Wasp
-curl -sSL https://get.wasp.sh/installer.sh | sh
+# Restart all services
+sudo supervisorctl restart all
 
-# 2. Setup frontend
+# Restart only frontend
+sudo supervisorctl restart frontend
+
+# Restart only backend
+sudo supervisorctl restart backend
+
+# Check service status
+sudo supervisorctl status
+
+# View backend logs
+tail -n 100 /var/log/supervisor/backend.*.log
+
+# View frontend logs
+tail -n 100 /var/log/supervisor/frontend.*.log
+```
+
+### Development
+```bash
+# Install backend dependencies
+cd /app/agent-service
+pip install -r requirements.txt
+
+# Install frontend dependencies
 cd /app/template/app
-wasp db migrate-dev
-wasp start
+yarn install
 
-# 3. Backend is already running
-# Check: curl http://localhost:8001/health
+# Run backend tests (when implemented)
+cd /app/agent-service
+pytest
 
-# 4. Start Docker services (optional)
-cd /app
-docker-compose up -d
-
-# 5. Access the application
-# Frontend: http://localhost:3000
-# Backend: http://localhost:8001
-# API Docs: http://localhost:8001/docs
-
-# 6. Create first user
-# Navigate to http://localhost:3000/signup
-
-# 7. Test agent creation
-# Go to http://localhost:3000/agents
+# Build frontend
+cd /app/template/app
+yarn build
 ```
 
 ---
 
-## 🐛 Known Issues & Workarounds
+## 🐛 Known Issues & Resolutions
 
-### Issue 1: Wasp CLI Not Available in Container
-**Impact:** Cannot compile frontend  
-**Workaround:** Deploy to environment with Wasp installed  
-**Solution:** Use Wasp-compatible hosting (Fly.io, Railway)
+### ✅ RESOLVED Issues
 
-### Issue 2: Mock Data in Services
-**Impact:** Data not persisted  
-**Workaround:** Test with API calls (returns mock data)  
-**Solution:** Implement database queries (2-3 hours work)
+#### Issue 1: Wasp Framework Dependencies
+**Impact:** Frontend couldn't build due to Wasp-specific imports  
+**Resolution:** ✅ RESOLVED - Migrated to React + Vite, removed all Wasp dependencies  
+**Date Resolved:** October 2025
 
-### Issue 3: Docker Not Available
-**Impact:** Milvus & Redis not running  
-**Workaround:** RAG features will be limited  
-**Solution:** Deploy to environment with Docker
+#### Issue 2: PostCSS Configuration Error
+**Impact:** Tailwind CSS not processing correctly  
+**Resolution:** ✅ RESOLVED - Added autoprefixer to package.json and updated config  
+**Date Resolved:** October 2025
 
-### Issue 4: No Auth Token Validation
-**Impact:** Backend doesn't validate users  
-**Workaround:** Frontend handles auth  
-**Solution:** Implement JWT middleware (2 hours)
+#### Issue 3: process.env Not Defined in Vite
+**Impact:** Environment variables not accessible in frontend  
+**Resolution:** ✅ RESOLVED - Added define config in vite.config.ts  
+**Date Resolved:** October 2025
+
+#### Issue 4: FastAPI Route Matching Issues
+**Impact:** Workflow endpoints conflicting (/:id matching before /templates)  
+**Resolution:** ✅ RESOLVED - Reordered routes in workflows.py API router  
+**Date Resolved:** October 2025
+
+### ⚠️ ACTIVE Issues (Low Priority)
+
+#### Issue 1: Milvus Vector DB Not Running
+**Impact:** RAG features limited without vector storage  
+**Workaround:** Document uploads accepted, processing deferred  
+**Solution:** Setup Milvus with Docker or cloud service  
+**Priority:** Medium (needed for full RAG)
+
+#### Issue 2: Some Services Use Mock Data
+**Impact:** Data may not persist across restarts  
+**Workaround:** Most operations use MongoDB, some edge cases may use mocks  
+**Solution:** Audit all service files, ensure MongoDB usage  
+**Priority:** Medium
+
+#### Issue 3: Authentication Not Fully Implemented
+**Impact:** No user isolation, anyone can access any agent  
+**Workaround:** Assume single-tenant usage for now  
+**Solution:** Complete JWT implementation with user session management  
+**Priority:** High (for production)
 
 ---
 
 ## 📈 Performance Expectations
 
 ### Backend API:
-- **Response Time:** < 100ms (without DB)
-- **Throughput:** 1000+ req/s
+- **Response Time:** < 200ms (with MongoDB)
+- **Throughput:** 500+ req/s
 - **WebSocket:** < 50ms latency
-- **Memory Usage:** ~200MB
+- **Memory Usage:** ~300MB
 
 ### Frontend:
-- **Load Time:** < 2s
+- **Load Time:** < 3s (first load)
 - **Interactive:** < 500ms
-- **Bundle Size:** < 1MB
+- **Bundle Size:** ~800KB (gzipped)
+- **Hot Reload:** < 1s
 
 ### Database:
-- **Query Time:** < 50ms
+- **Query Time:** < 100ms (MongoDB)
 - **Connections:** 100 concurrent
-- **Storage:** Scalable (PostgreSQL + Milvus)
+- **Storage:** Scalable (MongoDB Atlas or self-hosted)
 
 ---
 
@@ -438,40 +504,50 @@ docker-compose up -d
 - [x] API key encryption (AES-256)
 - [x] CORS configuration
 - [x] Admin role system
-- [x] Environment variables
-- [ ] JWT validation (pending)
-- [ ] Rate limiting (pending)
-- [ ] SQL injection prevention (pending)
-- [ ] XSS protection (Wasp default)
-- [ ] HTTPS in production (deployment)
+- [x] Environment variables for secrets
+- [x] UUID-based IDs (no ObjectID exposure)
+- [ ] JWT validation (partial - needs completion)
+- [ ] Rate limiting (not implemented)
+- [ ] Input sanitization (basic validation only)
+- [ ] XSS protection (React default + Tailwind)
+- [ ] HTTPS in production (deployment-dependent)
+- [ ] API endpoint authentication (needs work)
+- [ ] Multi-tenant data isolation (not implemented)
 
 ---
 
 ## 📚 Technical Debt
 
 **Priority 1 (Before Production):**
-1. Implement database persistence
-2. Add JWT authentication
-3. Complete RAG pipeline
-4. Add rate limiting
-5. Implement proper error handling
-6. Add request validation
-7. Setup monitoring (Sentry)
+1. ✅ Complete frontend migration to React/Vite - DONE
+2. Complete authentication implementation (JWT, sessions, user isolation)
+3. Implement full RAG pipeline with Milvus
+4. Audit and ensure all services use MongoDB (no mocks)
+5. Add rate limiting to API endpoints
+6. Implement proper error handling across all endpoints
+7. Add comprehensive input validation
+8. Setup monitoring (Sentry or similar)
+9. Implement API request logging
+10. Add database backup strategy
 
 **Priority 2 (Phase 2):**
-1. Implement Pipecat integration
-2. Add workflow engine
-3. Build deployment UI components
-4. Add comprehensive tests
-5. Optimize performance
-6. Add caching layer
+1. Implement workflow execution with real integrations
+2. Build deployment/embed UI
+3. Add comprehensive test suite (unit + integration)
+4. Optimize frontend bundle size
+5. Add caching layer (Redis)
+6. Implement webhook system for external triggers
+7. Build analytics dashboard with real metrics
+8. Add A/B testing framework
 
 **Priority 3 (Nice to Have):**
-1. API versioning
-2. GraphQL layer
-3. Webhook system
-4. Analytics dashboard
-5. A/B testing framework
+1. API versioning (/api/v1, /api/v2)
+2. GraphQL layer (alternative to REST)
+3. Batch operations API
+4. Agent cloning functionality
+5. Multi-language support
+6. Advanced anomaly detection
+7. Performance profiling tools
 
 ---
 
