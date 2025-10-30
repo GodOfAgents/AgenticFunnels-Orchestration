@@ -2,7 +2,7 @@
 
 [![License: Apache 2.0](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Platform: FastAPI + React](https://img.shields.io/badge/Platform-FastAPI%20%2B%20React-green.svg)]()
-[![Status: Production Ready](https://img.shields.io/badge/Status-Production%20Ready-brightgreen.svg)]()
+[![Status: goto COMPLETE_PLAN.md](https://img.shields.io/badge/Status-Production%20Ready-brightgreen.svg)]()
 
 > **Stop Missing Leads. Start Automating Revenue. Deploy Voice & Text AI Agents in Minutes.**
 
