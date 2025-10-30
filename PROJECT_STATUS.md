@@ -55,83 +55,156 @@
 
 ---
 
-## 🎯 What Needs to be Done
+## 🎯 Major Achievements (Phase 1.5)
 
-### Immediate (To Complete Full Integration):
+### ✅ Frontend Migration from Wasp to React/Vite (COMPLETED)
+**What Was Done:**
+- ✅ Removed all Wasp framework dependencies
+- ✅ Created new Vite-based build system
+- ✅ Implemented React Router v6 for navigation
+- ✅ Created custom auth.ts and router.ts to replace Wasp-specific imports
+- ✅ Updated package.json with React Flow, Vite, and modern tooling
+- ✅ Fixed PostCSS configuration issues
+- ✅ Configured process.env support in vite.config.ts
+- ✅ Updated all imports from Wasp to standard React patterns
+- ✅ Verified hot-reload and build process working
 
-1. **Install Wasp CLI** (External - cannot do in current environment)
-   ```bash
-   curl -sSL https://get.wasp.sh/installer.sh | sh
-   ```
+**Impact:** Frontend is now fully independent, faster, and easier to maintain
 
-2. **Run Database Migration**
-   ```bash
-   cd /app/template/app
-   wasp db migrate-dev
-   ```
+### ✅ Visual Workflow Builder (COMPLETED)
+**What Was Done:**
+- ✅ Created WorkflowCanvas.tsx with React Flow library
+- ✅ Implemented 11 node types (Start, User Input, Condition, RAG Query, Webhook, Calendar, Send Email, Agent Response, Set Variable, HTTP Request, End)
+- ✅ Built integration-aware node palette
+- ✅ Real-time integration status checking
+- ✅ Node validation with error/warning display
+- ✅ Drag-and-drop workflow creation
+- ✅ Visual connection between nodes
+- ✅ Save/load workflow functionality
+- ✅ Backend support for workflow execution (RAG, webhooks, calendar)
 
-3. **Start Wasp Frontend**
-   ```bash
-   wasp start
-   ```
+**Files Created/Updated:**
+- `/app/template/app/src/afo/workflows/WorkflowCanvas.tsx`
+- `/app/template/app/src/afo/workflows/WorkflowBuilderPage.tsx`
+- `/app/agent-service/app/api/workflows.py` (enhanced endpoints)
+- `/app/agent-service/app/services/workflow_service.py` (node execution)
 
-4. **Connect Frontend to Backend**
-   - Frontend will run on port 3000
-   - Backend already running on port 8001
-   - API client already configured to connect
+### ✅ Enhanced Agent Creation UI (COMPLETED)
+**What Was Done:**
+- ✅ Created 4-step wizard for agent creation
+  - Step 1: Basic Info (name, persona with visual selector)
+  - Step 2: Instructions & System Prompts
+  - Step 3: Voice Configuration (Qwen 3 Omni + LiveKit)
+  - Step 4: Integrations (17 integration options)
+- ✅ Visual persona selector with icons
+- ✅ Integration configuration during creation
+- ✅ Calendar integration setup (Google Calendar, Calendly)
+- ✅ CRM integration setup (Salesforce, HubSpot, Pipedrive)
+- ✅ Email/Communication setup (Twilio, SendGrid)
 
-5. **Test End-to-End Flow**
-   - Create agent via UI
-   - Add integration (ElevenLabs)
-   - View admin dashboard
-   - Check real-time monitoring
+**Files Created:**
+- `/app/template/app/src/afo/agents/AgentCreatePageEnhanced.tsx`
+- `/app/template/app/src/afo/agents/AgentDetailPageEnhanced.tsx`
+
+### ✅ Landing Page Improvements (COMPLETED)
+**What Was Done:**
+- ✅ Removed Qwen 3 Omni branding from Hero component
+- ✅ Fixed "Start Free Trial" button to navigate to agent creation
+- ✅ Added Pricing section component
+- ✅ Integrated pricing into landing page layout
+- ✅ Updated all CTAs to point to correct routes
 
 ---
 
-## 🔄 Integration Points to Verify
+## 🔄 What Needs to be Done Next (Priority Order)
 
-### Database Persistence (HIGH PRIORITY)
-**Current State:** Services use in-memory mock data  
+### HIGH PRIORITY - Core Features
+
+#### 1. Test Agent Chat Interface
+**Current State:** UI placeholder exists  
 **What's Needed:**
-- Connect Wasp PostgreSQL to Python FastAPI
-- Implement actual SQLAlchemy queries
-- Replace mock responses with DB queries
-
-**Files to Update:**
-- `/app/agent-service/app/services/agent_service.py`
-- `/app/agent-service/app/services/conversation_service.py`
-- All other service files
-
-**Estimated Time:** 2-3 hours
-
-### RAG Pipeline (MEDIUM PRIORITY)
-**Current State:** Upload endpoint ready, processing stubbed  
-**What's Needed:**
-- Implement document parsing (PDF, DOCX, TXT)
-- Text chunking with LangChain
-- Embedding generation (OpenAI)
-- Milvus vector storage
-- Query interface
-
-**Files to Update:**
-- `/app/agent-service/app/services/knowledge_service.py`
-- Create new file: `rag_pipeline.py`
+- Real-time chat interface with created agents
+- WebSocket integration for streaming responses
+- Message history persistence
+- File attachment support
+- Voice conversation testing (Qwen 3 Omni + LiveKit)
 
 **Estimated Time:** 3-4 hours
 
-### Authentication Bridge (MEDIUM PRIORITY)
-**Current State:** Wasp handles auth, FastAPI needs user context  
+#### 2. Knowledge Base / RAG Integration
+**Current State:** Backend endpoints ready, processing stubbed  
 **What's Needed:**
-- Wasp generates JWT tokens
-- FastAPI validates JWT
-- Extract user ID from token
-- Pass to services
+- Document upload UI (PDF, DOCX, TXT, CSV)
+- Backend document parsing and chunking
+- Milvus vector database integration
+- Embedding generation (OpenAI or alternative)
+- RAG query interface in workflows
+- Knowledge base management page
 
 **Files to Update:**
-- `/app/agent-service/app/core/auth.py` (create)
-- `/app/agent-service/main.py` (add auth middleware)
+- `/app/agent-service/app/services/knowledge_service.py`
+- Create new UI: `KnowledgeBasePage.tsx`
 
-**Estimated Time:** 2 hours
+**Estimated Time:** 4-5 hours
+
+#### 3. Conversation Management
+**Current State:** Backend stores conversations, limited UI  
+**What's Needed:**
+- Conversation history list page
+- Individual conversation detail view
+- Search and filter functionality
+- Export conversations (CSV, JSON)
+- Analytics on conversations
+- Lead qualification status tracking
+
+**Estimated Time:** 3-4 hours
+
+### MEDIUM PRIORITY - Database & Persistence
+
+#### 4. Complete Database Persistence
+**Current State:** MongoDB connected, some operations use mock data  
+**What's Needed:**
+- Ensure all services use MongoDB (not mock data)
+- Workflow persistence to database
+- Conversation history storage
+- Integration credentials encrypted storage
+- User settings persistence
+
+**Files to Review:**
+- All service files in `/app/agent-service/app/services/`
+
+**Estimated Time:** 2-3 hours
+
+#### 5. Authentication Implementation
+**Current State:** Basic auth structure exists  
+**What's Needed:**
+- Complete JWT token generation and validation
+- User registration and login flow
+- Session management
+- Password reset functionality
+- Multi-tenant isolation
+
+**Estimated Time:** 3-4 hours
+
+### MEDIUM PRIORITY - Integration Testing
+
+#### 6. Integration Activation Testing
+**Current State:** 17 integrations supported, activation needs testing  
+**What's Needed:**
+- Test each integration activation flow
+- Verify API key storage and encryption
+- Test integration usage in workflows
+- Error handling for failed integrations
+
+**Integrations to Test:**
+- Calendar: Google Calendar, Calendly, Microsoft 365
+- CRM: Salesforce, HubSpot, Pipedrive
+- Communication: Twilio, SendGrid, Slack
+- Voice: Qwen 3 Omni, LiveKit, ElevenLabs
+- Storage: Google Drive, Dropbox
+- Meeting: Zoom, Google Meet, Microsoft Teams
+
+**Estimated Time:** 4-6 hours
 
 ---
 
