@@ -10,7 +10,7 @@
 
 ## 🎯 What is AFO? The Future of Customer Engagement is Autonomous
 
-**AFO (Agentic Funnel Orchestration)** is a comprehensive, self-hosted, and multi-tenant SaaS platform designed to automate your entire customer engagement funnel—from lead qualification to 24/7 support—using intelligent, multimodal AI agents.
+**AFO (Agentic Funnel Orchestration)** is a comprehensive, self-hosted, and multi-tenant SaaS platform designed to automate user's entire customer engagement funnel—from lead qualification to 24/7 support—using intelligent, multimodal AI agents.
 
 Built for **Sales Managers, Support Leads, and Operations Directors**, AFO transforms manual, expensive, and slow customer interactions into a high-speed, cost-effective, and always-on revenue engine.
 
